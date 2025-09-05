@@ -9,8 +9,8 @@ $lg: 2rem;
   box-sizing: 0;
   margin: 0;
   padding: 0;
-  cursor: url("assets/images/cursors-edge.png"),
-    auto;
+  // cursor: url("assets/images/cursors-edge.png"),
+  //   auto;
 }
 
 body {
@@ -42,7 +42,7 @@ div {
 }
 
 aside {
-  background-image: url("assets/images/right-edges.png");
+  //background-image: url("assets/images/right-edges.png");
   background-position: top right;
   background-repeat: no-repeat;
   background-size: 25px 100%;
@@ -77,8 +77,7 @@ main {
     padding: $sm $md;
     transform: skew(-5deg);
     transition: all 0.1s ease;
-    cursor: url("assets/images/cursors-eye.png"),
-      auto;
+    //cursor: url("assets/images/cursors-eye.png"),auto;
     &:hover {
       background-color: $lime;
       transform: scale(1.15);

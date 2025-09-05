@@ -32,31 +32,27 @@ export class AuthenticationService {
    * @param authentication
    * @returns
    */
-  login(authentication: string) {
-    if (authentication) {
-      const headers = new HttpHeaders({
-        Authorization: `Basic ${authentication}`,
-      });
-      const opstions: HttpOptions = {
-        path: PATH.GENERATE_TOKEN,
-        url: URL_SYSTEM,
-        headers,
-        params: {
-          grantType: 'PASSWORD_GRANT',
-        },
-        isAuthentication: false,
-      };
-      // call api /generate-token
-      return this.httpClient.get(opstions).pipe(
-        tap((response: HttpInterface<Login>) => {
-          this.storeSession(response.data);
-        }),
-        map((response: HttpInterface<Login>) => {
-          this.startRefreshTokenTimer();
-          return response;
-        })
-      );
-    }
+  login(username: string, password: string) {
+    const opstions: HttpOptions = {
+      path: PATH.GENERATE_TOKEN,
+      url: URL_SYSTEM,
+      body: {
+        username: username,
+        password: password
+      },
+      isAuthentication: false,
+    };
+    // call api /generate-token
+    return this.httpClient.post(opstions).pipe(
+      tap((response: HttpInterface<Login>) => {
+        this.storeSession(response.data);
+      }),
+      map((response: HttpInterface<Login>) => {
+        this.startRefreshTokenTimer();
+        return response;
+      })
+    );
+
   }
 
   /**

@@ -44,7 +44,7 @@ export class LoginComponent implements OnInit {
       `${username}:${password}`
     );
     this.authenticationService
-      .login(authentication).subscribe(
+      .login(username, password).subscribe(
         () => {
           if (this.authenticationService.tokenValid()) {
             this.menu.navigateToHome();

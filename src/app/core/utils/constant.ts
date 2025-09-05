@@ -1,21 +1,11 @@
 import { environment } from '@env/environment';
 
 export const URL_SYSTEM = environment.urlSystem;
-export const URL_ADVICE = environment.urlAdvice;
-export const URL_AMEND = environment.urlAdvice;
-// export const URL_AMEND = environment.urlAmend;
-export const URL_LOG = environment.urlLog;
-export const URL_PRESENT_DOC = environment.urlPresentDoc;
-export const URL_MESSAGE = environment.urlMessage;
-export const URL_EVALUATE = environment.urlEvaluate;
-export const URL_TRACING = environment.urlTracing;
-export const URL_CONSULT = environment.urlTracing;
-export const URL_API_FILE = environment.urlApiFile;
 export const STATUS = { SUCCESS: 0, ERROR: 500 };
-export const URL_ADMIN = environment.urlAdmin;
+
 
 export const PATH = {
-    GENERATE_TOKEN: 'generate-token',
+    GENERATE_TOKEN: 'public/login',
     AUTO_GENERATE_TOKEN: 'generate-token-url',
     REVOKE_TOKEN: 'revoke-token',
     USER_INFO: 'user-info',

@@ -1,0 +1,19 @@
+<div class="" [formGroup]="form">
+  <div class="form-input-row">
+    <input
+      #inputElement
+      class="form-control"
+      [ngClass] = "{'form-error': isValidControl(item.key)}"
+      [formControlName]="item.key"
+      autocomplete="off"
+      [placeholder]="item.placeholder"
+      [id]="id || item.key"
+      [min]="item.min || 0"
+      currencyMaskDirective
+      [decimalFormat]="item.decimalFormat"
+    />
+
+    <p class ="currency-text" *ngIf="item.currencyText">{{item.currencyText}}</p>
+
+  </div>
+</div>

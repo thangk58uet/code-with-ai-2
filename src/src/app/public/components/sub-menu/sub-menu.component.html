@@ -1,0 +1,30 @@
+<div class="sub-menu" *ngIf="subMenu">
+  <div
+    class="sub-menu-content jc-sb"
+    (click)="subMenuClicked()"
+    (auxclick)="subMenuAuxClicked($event)"
+    [class.sub-menu-focused]="isFocus"
+  >
+    <div class="row ai-c overflow-break-word">
+      <div class="sub-menu-icon">
+        <img *ngIf="subMenu.iconUrl" [src]="subMenu.iconUrl" />
+        <mat-icon *ngIf="subMenu.menuIcon">{{subMenu.menuIcon}}</mat-icon>
+      </div>
+      <div class="overflow-break-word">
+        <a href="{{subMenu.url}}" (click)="clickSubMenu($event)"
+        >
+        {{ subMenu.menuName }} 
+        </a>  
+      </div>
+    </div>
+    <div class="" *ngIf="subMenu.child && subMenu.child.length > 0">
+      <mat-icon *ngIf="!subMenu.open">arrow_left</mat-icon>
+      <mat-icon *ngIf="subMenu.open">arrow_drop_down</mat-icon>
+    </div>
+  </div>
+  <ng-container *ngIf="subMenu.open">
+    <div *ngFor="let childSub of subMenu?.child" class="sub-menu-child">
+      <app-sub-menu [subMenu]="childSub"></app-sub-menu>
+    </div>
+  </ng-container>
+</div>

@@ -1,0 +1,84 @@
+#!/usr/bin/env groovy
+library('cicd-shared-lib-dev@1.0.0') _
+
+import java.text.SimpleDateFormat
+
+node("${NODE_INTEGRATION_TEAM}") {
+    // =================================================================================
+    /**
+     * TODO: Chi thay doi 2 thong tin tren tuong ung voi project
+     *
+     * project_name: Name of project
+     * kubernetes_namespace: namespace of K8S
+     */
+    def project_name = "code-with-ai"
+    def kubernetes_namespace = "dev-bpm-tttm"
+    
+    // ===================================================================================
+    def image_version = "1.0.1"
+    def chart_version = "0.1.${BUILD_NUMBER}"
+    def environment = "L02"
+    //def harbor_host = "${harbor_uat}"
+    def harbor_host = vault path: 'cicd/harbor', key: 'harbor_dev', credentialsId: 'vault-token-dev', engineVersion: "2"
+    def helm_template = vault path: 'cicd/helm', key: 'helm_template', credentialsId: 'vault-token-dev', engineVersion: "2"
+    def helm_host_argocd = "argocd-helm-dev"
+    def docker_prefix = "${harbor_host}/${kubernetes_namespace}"   
+    //def helm_template ="helm-template-mbbank-argocd-prod"
+    // ===================================================================================
+    
+    /**
+     * TODO: Chon luong deploy
+     * Deploy theo luong argocd : CICD-ARGOCD
+     * Deploy theo luong helm : CICD-HELM
+     */
+    def Options = "CICD-ARGOCD"
+    def sub_path = "dev"
+    // ===================================================================================
+    
+    ci_common(project_name, docker_prefix, image_version, harbor_host, helm_template, Options, sub_path)
+    try {
+        def arrProject = environment.split(' ')
+        def stages = [failFast: true]
+        if(arrProject.length > 0 ){
+            for (int i = 0; i < arrProject.length; i++) {
+                def env = arrProject[i];
+                switch(env) {
+                    case "L01":
+                        helm_host = "${helm_host_argocd}-${env}"
+                        env_argocd = "l01"
+                        break
+                    case "L02":
+                        helm_host = "${helm_host_argocd}-${env}"
+                        env_argocd = "l02"
+                        break
+                    }
+                stage("Start ${arrProject[i]} Environment"){
+                    script {
+                        helm_pack_non_root_nginx(project_name, env, helm_host, helm_template, docker_prefix, image_version, Options, chart_version, sub_path) 
+                        cd_common(project_name, helm_host, arrProject, stages, docker_prefix, image_version, env, Options, kubernetes_namespace, env_argocd, chart_version) }
+                }
+            }
+        }
+        parallel stages
+    } catch (Exception ex) {
+        currentBuild.result = "Failed"
+        throw ex
+    }
+}
+def ci_common(def project_name, def docker_prefix, def image_version, def harbor_host, def helm_template, def Options, def sub_path) {
+    stage(' Git Clone ') {
+        script { ci_common_java () }
+    }
+
+    stage('2.NPM build') {
+        sh "npm cache clean --force"
+        sh "npm cache verify"
+        sh "npm install"
+        sh "node node_modules/@angular/cli/bin/ng build --prod --base-href=/view/ --deploy-url=/view/  --aot --configuration uat"
+    }
+
+    stage(' Docker Build ') {
+        script { docker_build_push(project_name,docker_prefix,image_version,harbor_host,sub_path) }
+    }
+}
+

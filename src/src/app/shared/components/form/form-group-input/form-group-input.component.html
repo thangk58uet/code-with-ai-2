@@ -1,0 +1,21 @@
+<div class="" [formGroup]="form">
+  <div class="form-input-row">
+    <input
+      matInput 
+      #inputElement
+      class="form-control"
+      [bpmItem]="item.directives"
+      [ngClass] = "{'form-error': isValidControl(item.key),'padding-currency-text-custom': item.currencyText}"
+      [formControlName]="item.key"
+      autocomplete="off"
+      [placeholder]="item.placeholder"
+      [id]="id || item.key"
+      [type]="item.type"
+      [bpmItemTypeCurrency] = "item.typeCurrency"
+      [min]="item.min || 0"
+      oninput="validity.valid||(value='');"
+    />
+    <p class ="currency-text" *ngIf="item.currencyText">{{item.currencyText}}</p>
+
+  </div>
+</div>

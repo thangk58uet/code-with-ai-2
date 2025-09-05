@@ -1,0 +1,91 @@
+<div *ngIf="visible; else false" style="margin: 0 5px 0 2px;" [ngSwitch]="type">
+
+    <ng-container *ngSwitchCase="'basic'">
+       <button class="btn-wrap"
+            [style.width]="width"
+            [ngClass]="sizeButton"
+            [matTooltip]="tooltip"
+            [disabled]="(disabled===true || false)"
+            [color]="color"
+            mat-button
+            (click)="ngOnClick($event)">
+            <mat-icon *ngIf="icon" class="mr-5px">{{icon}}</mat-icon>
+            {{text}}
+        </button>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'mat-raised'">
+       <button class="btn-wrap"
+            [style.width]="width"
+            [ngClass]="sizeButton"
+            [matTooltip]="tooltip"
+            [disabled]="(disabled===true || false)"
+            [color]="color"
+            mat-raised-button
+            (click)="ngOnClick($event)">
+            <mat-icon *ngIf="icon" class="mr-5px" >{{icon}}</mat-icon>
+          {{text}}
+        </button>
+    </ng-container>
+
+    <ng-container *ngSwitchCase="'mat-stroked'">
+       <button class="btn-wrap"
+            [style.width]="width"
+            [ngClass]="sizeButton"
+            [matTooltip]="tooltip"
+            [disabled]="(disabled===true || false)"
+            [color]="color"
+            mat-stroked-button
+            (click)="ngOnClick($event)">
+            <mat-icon *ngIf="icon" class="mr-5px">{{icon}}</mat-icon>
+            {{text}}
+        </button>
+    </ng-container>
+    <ng-container *ngSwitchCase="'mat-flat'">
+       <button class="btn-wrap"
+            [style.width]="width"
+            [ngClass]="sizeButton"
+            [matTooltip]="tooltip"
+            [disabled]="(disabled===true || false)"
+            [color]="color"
+            mat-flat-button
+            (click)="ngOnClick($event)">
+            <mat-icon *ngIf="icon" class="mr-5px">{{icon}}</mat-icon>
+            {{text}}
+        </button>
+    </ng-container>
+    <ng-container *ngSwitchCase="'mat-icon'">
+       <button class="btn-wrap"
+            [matTooltip]="tooltip"
+            [disabled]="(disabled===true || false)"
+            [color]="color"
+            mat-icon-button
+            (click)="ngOnClick($event)">
+            <mat-icon *ngIf="icon">{{icon}}</mat-icon>
+            {{text}}
+        </button>
+    </ng-container>
+    <ng-container *ngSwitchCase="'mat-fab'">
+       <button class="btn-wrap"
+            [matTooltip]="tooltip"
+            [isRoundButton]="true"
+            [disabled]="(disabled===true || false)"
+            [color]="color"
+            mat-fab
+            (click)="ngOnClick($event)">
+            <mat-icon *ngIf="icon">{{icon}}</mat-icon>
+            {{text}}
+        </button>
+    </ng-container>
+    <ng-container *ngSwitchCase="'mat-mini-fab'">
+       <button class="btn-wrap"
+            [matTooltip]="tooltip"
+            [disabled]="(disabled===true || false)"
+            [color]="color"
+            mat-mini-fab
+            (click)="ngOnClick($event)">
+            <mat-icon *ngIf="icon">{{icon}}</mat-icon>
+            {{text}}
+        </button>
+    </ng-container>
+</div>

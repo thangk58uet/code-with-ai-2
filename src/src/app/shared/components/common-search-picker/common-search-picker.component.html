@@ -1,0 +1,66 @@
+<div class="w-100 form-label">{{ initSetting.label }}:</div>
+<div class="row ai-c form-input-row w-100 mb-1r" *ngIf="initSetting.filterable">
+  <div class="w-100">
+    <bpm-dynamic-form [form]="filterForm" [item]="formItem"></bpm-dynamic-form>
+  </div>
+  <button mat-raised-button color="primary" class="side-btn" (click)="search()">
+    <mat-icon>search</mat-icon>
+  </button>
+</div>
+<div class="row pb-1r">
+  <div class="w-40">
+    <div class="font-weight-bold ta-c">Search Result</div>
+    <div
+      scrollTracker
+      [scollingItems]="initSetting.searchData?.length"
+      (scrollingFinished)="onScrollingFinished()"
+      class="form-control form-box"
+    >
+      <div
+        class="box-list-item"
+        [class.box-list-item-selected]="selectedSearchValue.includes(data)"
+        [class.box-list-item-disabled]="isDisabled(data)"
+        (click)="selectItem(data, selectedSearchValue)"
+        *ngFor="let data of initSetting.searchData"
+      >
+        {{ data[initSetting.displayKey] }}
+        <mat-icon
+          style="float: right"
+          *ngIf="selectedSearchValue.includes(data)"
+          >check_circle</mat-icon
+        >
+      </div>
+    </div>
+  </div>
+  <div class="w-20 naviation-box ta-c">
+    <div>
+      <button
+        mat-raised-button
+        color="primary"
+        class="mb-1r"
+        (click)="transferItems()"
+      >
+        <mat-icon>chevron_right</mat-icon>
+      </button>
+    </div>
+    <div>
+      <button mat-raised-button color="primary" (click)="removeItems()">
+        <mat-icon>chevron_left</mat-icon>
+      </button>
+    </div>
+  </div>
+  <div class="w-40">
+    <div class="font-weight-bold ta-c">Selected Users</div>
+    <div class="form-control form-box">
+      <div
+        class="box-list-item"
+        [class.box-list-item-selected]="selectedPickedItem.includes(data)"
+        (click)="selectItem(data, selectedPickedItem)"
+        *ngFor="let data of outputValue"
+      >
+        {{ data[initSetting.displayKey] }}
+        <mat-icon style="float: right" *ngIf="selectedPickedItem.includes(data)">check_circle</mat-icon>
+      </div>
+    </div>
+  </div>
+</div>

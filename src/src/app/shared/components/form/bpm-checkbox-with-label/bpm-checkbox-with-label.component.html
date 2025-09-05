@@ -1,0 +1,36 @@
+<div fxLayoutAlign="center center" fxLayout="row wrap" fxFlex="100" class="ml-5px mr-5px" *ngIf="visible; else false">
+    <div *ngIf="label != '' && flexLabel !=0" class="form-group" [fxFlex.gt-xs]="flexLabel" [fxFlex.gt-sm]="flexLabel"
+        fxFlex="100">
+        <label for="{{label}}" class="">{{label}}<span *ngIf="required" class="required">*</span>
+        </label>
+    </div>
+    <ng-container>
+        <div class="form-group" [fxFlex.gt-xs]="flexInput" [fxFlex.gt-sm]="flexInput" fxFlex="100" >
+            <div class="form-input-row">
+                <mat-checkbox 
+                    color="primary"
+                    #name="ngModel"
+                    id="{{id}}"
+                    labelPosition="after"
+                    [(ngModel)]="model"
+                    [required]="required || false"
+                    [disabled]="(disabled===true || false)"
+                    (ngModelChange)="ngModelChange($event)"
+                    (change)="ngOnChange($event)"
+                    (blur)="ngOnBlur($event)"
+                >
+               <ng-content></ng-content>
+                </mat-checkbox>
+            </div>
+        </div>
+        <div fxLayout="row wrap" fxFlex="100" *ngIf="name.invalid && (name.dirty || name.touched)">
+            <div [fxFlex.gt-xs]="flexLabel" [fxFlex.gt-sm]="flexLabel" fxFlex="100"></div>
+            <div [fxFlex.gt-xs]="flexInput" [fxFlex.gt-sm]="flexInput" fxFlex="100" fxFlexAlign="center">
+                <div *ngIf="name.errors?.required" class="form-error-message">
+                    {{'Vui lòng lựa chọn'}}
+                </div>
+            </div>
+        </div>
+    </ng-container>
+   
+</div>

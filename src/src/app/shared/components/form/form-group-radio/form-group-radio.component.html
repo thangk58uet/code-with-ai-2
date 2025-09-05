@@ -1,0 +1,11 @@
+<!-- CASE RADIO -->
+<div [formGroup]="form" class="p-b-16">
+  <mat-radio-group color="primary" [formControlName]="item.key" [id]="id || item.key">
+    <mat-radio-button
+      *ngFor="let opt of item.options"
+      [value]="opt.key"
+      [class]="opt.className"
+      >{{ opt.value }}</mat-radio-button
+    >
+  </mat-radio-group>
+</div>

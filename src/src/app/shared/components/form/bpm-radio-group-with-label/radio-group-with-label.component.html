@@ -1,0 +1,50 @@
+<div fxLayoutAlign="center center" fxLayout="row wrap" fxFlex="100" class="ml-5px mr-5px" *ngIf="visible; else false">
+    <div *ngIf="label != '' && flexLabel !=0" class="form-group" [fxFlex.gt-xs]="flexLabel" [fxFlex.gt-sm]="flexLabel"
+        fxFlex="100">
+        <label [style.color]="colorLabel" [style.font-weight]="boldLabel" for="{{label}}">{{label}}<span *ngIf="required" class="required">*</span>
+        </label>
+    </div>
+    <ng-container *ngIf="type=='vertical'">
+        <div class="form-group" [fxFlex.gt-xs]="flexInput" [fxFlex.gt-sm]="flexInput" fxFlex="100">
+            <div class="form-input-row">
+                <mat-radio-group color="primary" class="bpm-radio-group" #name="ngModel" id="{{id}}" [(ngModel)]="model"
+                    [required]="required" [disabled]="(disabled===true || false)" (ngModelChange)="ngModelChange($event)"
+                    (change)="ngOnChange($event)" (blur)="ngOnBlur($event)">
+                    <mat-radio-button class="bpm-radio-button" *ngFor="let option of options" [value]="option.value">
+                        {{option.text}}
+                    </mat-radio-button>
+                </mat-radio-group>
+            </div>
+        </div>
+        <div fxLayout="row wrap" fxFlex="100" *ngIf="name.invalid && (name.dirty || name.touched)">
+            <div [fxFlex.gt-xs]="flexLabel" [fxFlex.gt-sm]="flexLabel" fxFlex="100"></div>
+            <div [fxFlex.gt-xs]="flexInput" [fxFlex.gt-sm]="flexInput" fxFlex="100" fxFlexAlign="center">
+                <div *ngIf="name.errors?.required" class="form-error-message">
+                    {{'Vui lòng chọn ' + (label || placeholder || '')}}
+                </div>
+            </div>
+        </div>
+    </ng-container>
+
+    <ng-container *ngIf="type=='horizontal'">
+        <div class="form-group" [fxFlex.gt-xs]="flexInput" [fxFlex.gt-sm]="flexInput" fxFlex="100">
+            <div class="mat-radio-horizontal">
+                <mat-radio-group color="primary" #name="ngModel" id="{{id}}" [(ngModel)]="model" [required]="required"
+                    [disabled]="(disabled===true || false)" (ngModelChange)="ngModelChange($event)" (change)="ngOnChange($event)"
+                    (blur)="ngOnBlur($event)">
+                    <mat-radio-button *ngFor="let option of options" [value]="option.value">
+                        {{option.text}}
+                    </mat-radio-button>
+                </mat-radio-group>
+            </div>
+        </div>
+        <div fxLayout="row wrap" fxFlex="100" *ngIf="name.invalid && (name.dirty || name.touched)">
+            <div [fxFlex.gt-xs]="flexLabel" [fxFlex.gt-sm]="flexLabel" fxFlex="100"></div>
+            <div [fxFlex.gt-xs]="flexInput" [fxFlex.gt-sm]="flexInput" fxFlex="100" fxFlexAlign="center">
+                <div *ngIf="name.errors?.required" class="form-error-message">
+                    {{'Vui lòng chọn ' + (label || placeholder|| '')}}
+                </div>
+            </div>
+        </div>
+    </ng-container>
+</div>

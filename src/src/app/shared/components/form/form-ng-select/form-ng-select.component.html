@@ -1,0 +1,18 @@
+<!-- CASE NG-SELECT -->
+<div [formGroup]="form">
+  <div>
+    <ng-select
+      [items]="item.options"
+      bindLabel="value"
+      bindValue="key"
+      [placeholder]="item.placeholder"
+      [id]="id || item.key"
+      [formControlName]="item.key"
+      [virtualScroll]="true"
+      [multiple]="item.type == 'multiple'"
+      [closeOnSelect]="item.type !== 'multiple'"
+      [ngClass]="{ 'form-error': isValidControl(item.key, 'required') }"
+    >
+    </ng-select>
+  </div>
+</div>

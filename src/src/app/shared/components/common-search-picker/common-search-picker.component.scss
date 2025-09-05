@@ -1,0 +1,34 @@
+@import "../../../../assets/styles/variables.scss";
+.form-box {
+    width: 100%;
+    height: 20rem;
+    min-height: 10rem;
+    max-height: 20rem;
+    overflow: auto;
+    padding: 0 !important;
+    .box-list-item {
+        padding: 10px;
+        border-bottom: 1px solid rgb(175, 175, 175);
+        &:last-child {
+            border-bottom: none;
+        }
+        &:hover, &-selected {
+            background-color: $color-blue-primary;
+            color: white;
+            cursor: pointer;
+        }
+        &-disabled {
+            background-color: #e9ecef;
+            color: grey;
+            &:hover{
+                background-color: #e9ecef;
+                color: grey;
+                cursor: default;
+            }
+        }
+    }
+}
+
+.naviation-box {
+    margin: auto;
+}

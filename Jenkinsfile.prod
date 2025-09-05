@@ -1,0 +1,98 @@
+#!groovy
+
+node('dev-slave01-10.1.16.20') {
+    def project_name = "code-with-ai"
+    def harbor_host= "10.1.27.43"
+    def kubernetes_namespace = "prod-tttm"
+	  def docker_prefix = "${harbor_host}/prod-tttm"
+
+    def kubernetes_deployment_name = "${project_name}-deployment"
+    def kubernetes_cluster = "c-b74l2:p-p525h"
+    def image_version = "1.1.${BUILD_NUMBER}"
+
+    try {
+        notifyBuild('STARTED')
+        stage('Clone repository') {
+		    deleteDir()
+            checkout scm
+        }
+
+		stage('Build') {
+            sh "npm cache clean --force"
+            sh "npm cache verify"
+		        sh "npm install"
+            sh "node node_modules/@angular/cli/bin/ng build --prod --base-href=/view/ --deploy-url=/view/  --aot --configuration prod" //--deploy-url=/view/
+		}
+
+
+        stage('Build image') {
+            app = docker.build("${docker_prefix}/${project_name}:${image_version}")
+        }
+
+
+        stage('Push image') {
+            docker.withRegistry("https://${harbor_host}/", 'harbor-private-registry') {
+                app.push()
+            }
+        }
+
+    } catch (e) {
+        currentBuild.result = "FAILED"
+        throw e
+    } finally {
+        notifyBuild(currentBuild.result)
+    }
+}
+
+
+def waitApplicationStart(String deploy_host, String port) {
+    def count = 1
+    while (count <= 50) {
+        sleep 5
+        try {
+            def response = sh(script: "curl http://${deploy_host}:${port}/actuator/health", returnStdout: true)
+            if (response && response == "{\"status\":\"UP\"}") {
+                count == 50
+                return "UP"
+            }
+        } catch (e) {
+            echo "Err $e"
+        }
+        count++
+    }
+    return "DOWN"
+}
+
+def notifyBuild(String buildStatus = 'STARTED') {
+    // build status of null means successful
+    buildStatus = buildStatus ?: 'SUCCESSFUL'
+
+    // Default values
+    def colorName = 'RED'
+    def colorCode = '#FF0000'
+    def subject = "${buildStatus}: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]'"
+    def summary = "${subject} (${env.BUILD_URL})"
+    def details = """<p>STARTED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]':</p>
+    <p>Check console output at &QUOT;<a href='${env.BUILD_URL}'>${env.JOB_NAME} [${env.BUILD_NUMBER}]</a>&QUOT;</p>"""
+
+    // Override default values based on build status
+    if (buildStatus == 'STARTED') {
+        color = 'YELLOW'
+        colorCode = '#FFFF00'
+    } else if (buildStatus == 'SUCCESSFUL') {
+        color = 'GREEN'
+        colorCode = '#00FF00'
+    } else {
+        color = 'RED'
+        colorCode = '#FF0000'
+    }
+
+    // Send notifications
+//    slackSend (color: colorCode, message: summary)
+
+    // emailext(
+    //     subject: subject,
+    //     body: details,
+    //     recipientProviders: [[$class: 'DevelopersRecipientProvider']]
+    //   )
+}

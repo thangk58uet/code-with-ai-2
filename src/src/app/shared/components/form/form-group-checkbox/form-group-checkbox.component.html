@@ -1,0 +1,20 @@
+<div class="mrl-4 p-b-16 bpm-checkbox" [formGroup]="form" *ngIf="form">
+    <div [formArrayName]="item.key" *ngIf="item.isArrayCheckbox; else singleCheckBox">
+        <div *ngFor="let itemChkbox of form.controls[item.key]['controls']; let i = index">
+            <mat-checkbox
+                color="primary"
+                [formControlName]="i"
+                [value]="item.options[i].key"
+                (change)="onCheckboxChange($event, item.options[i])"
+                [id]="id || item.key"
+            >
+                {{ item.options[i].value }}</mat-checkbox
+            >
+        </div>
+    </div>
+    <ng-template #singleCheckBox>
+        <mat-checkbox color="primary" [formControlName]="item.key">
+            {{ item.label }}
+        </mat-checkbox>
+    </ng-template>
+</div>

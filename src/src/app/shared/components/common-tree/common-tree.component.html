@@ -1,0 +1,10 @@
+<div *ngFor="let item of treeItems; let i = index">
+  <bpm-tree-item
+    [selectable]="selectable"
+    [optionList]="optionList"
+    [treeItem]="item"
+    [index]="i"
+    (treeItemChecked)="treeEventChange($event)"
+    (treeItemEvent)="optionEventChange($event)"
+  ></bpm-tree-item>
+</div>

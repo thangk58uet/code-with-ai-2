@@ -1,0 +1,334 @@
+<div fxLayout="row wrap" fxLayoutAlign="end" *ngIf="optionsLocal.addInSide">
+    <button mat-icon-button color="warn" matTooltip="Thêm" (click)="onAddButtonData()">
+        <mat-icon>add</mat-icon>
+    </button>
+</div>
+<div class="container-row bpm-table" fxLayout="row wrap" [class]="className"
+    [style]="paddingDefault=='true'?'padding:5px': 'padding:1px'" style="position: relative;">
+    <div class="bpm-mat-table">
+        <div class="bpm-mat-table-header" *ngIf="optionsLocal.showHeader">
+            <div *ngIf="(measureUnit && measureUnit!='')" class="measure" fxLayoutAlign="end">
+                <span>{{"(" + measureUnit + ")"}}</span>
+            </div>
+            <div class="toolbar" *ngIf="toolBar">
+                <div class="toolbar-left">
+                    <div *ngIf="searching" class="searchDiv">
+                        <mat-form-field class="input searchBar">
+                            <mat-icon matPrefix>search</mat-icon>
+                            <input [ngModel]="optionsLocal.searchText" (keyup)="dataLocal.filter = $event.target.value"
+                                (ngModelChange)="ngonSearchChange($event)" matInput type="text" #searchInput>
+                        </mat-form-field>
+                        <button mat-button mat-icon-button
+                            (click)="searching=false;dataLocal.filter='';optionsLocal.searchText=''"
+                            class="cancelSearch">
+                            <mat-icon>close</mat-icon>
+                        </button>
+
+                    </div>
+                    <div *ngIf="!searching" class="toolbar-title" [style]="!measureUnit? 'padding-top: 15px;':''">
+                        <span>{{title}}</span>
+                    </div>
+                </div>
+                <div class="toolbar-right" *ngIf="toolBarRight">
+                    <button matTooltip="{{optionsLocal.textLabels.toolbar.search}}" aria-label="Search" mat-button
+                        mat-icon-button (click)="onSearch()">
+                        <mat-icon>search</mat-icon>
+                    </button>
+                    <button *ngIf="optionsLocal.download" matTooltip="{{optionsLocal.textLabels.toolbar.downloadCsv}}"
+                        aria-label="Download Csv" mat-button mat-icon-button (click)="downloadCSV()">
+                        <mat-icon>cloud_download</mat-icon>
+                    </button>
+                    <button *ngIf="optionsLocal.print" matTooltip="{{optionsLocal.textLabels.toolbar.print}}"
+                        aria-label="Print" mat-button (click)="print()" mat-icon-button>
+                        <mat-icon>print</mat-icon>
+                    </button>
+                    <button *ngIf="optionsLocal.viewColumns"
+                        matTooltip="{{optionsLocal.textLabels.toolbar.viewColumns}}" aria-label="View Columns"
+                        mat-button mat-icon-button (click)="columnSetting.onContainerClick()">
+                        <mat-icon>view_column</mat-icon>
+                            <mat-select color="warn" #columnSetting multiple [ngModel]="displayedColumns"
+                            (ngModelChange)="ngModelChangeColums($event)">
+                            <mat-option *ngFor="let column of columnsLocal" [value]="column.name"
+                                [disabled]="(column.name=='action' || column.options.viewColumns==false)">
+                                {{ column.label }}
+                            </mat-option>
+                            </mat-select>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="bpm-wrapper-table">
+            <table mat-table [dataSource]=" optionsLocal.serverSide? data: dataLocal" matSort
+                (matSortChange)="sortChange($event)"
+                cdkDropList
+                cdkDropListOrientation="horizontal"
+                (cdkDropListDropped)="drop($event)">
+                <!-- Checkbox Column -->
+                <ng-container matColumnDef="select">
+                    <th mat-header-cell  *matHeaderCellDef style="width: 1%; text-align:center; vertical-align:middle;">
+                        <ng-container *ngIf="allowMultiSelect">
+                            <mat-checkbox color="warn" (change)="$event ? masterToggle() : null"
+                                [checked]="selection.hasValue() && isAllSelected()"
+                                [indeterminate]="selection.hasValue() && !isAllSelected()">
+                            </mat-checkbox>
+                        </ng-container>
+                        <ng-container *ngIf="allowMultiSelect==false">
+                            {{optionsLocal.selectHeaderLabel}}
+                        </ng-container>
+                    </th>
+
+                    <td mat-cell  *matCellDef="let row" style="width: 1%; text-align:center; vertical-align:middle;">
+                        <mat-checkbox [disabled] = "disabled" color="warn" (click)="$event.stopPropagation()" *ngIf="!radioButton"
+                            (change)="$event?ngOnRowsSelect(row):null" [checked]="selection.isSelected(row)">
+                        </mat-checkbox>
+                        <mat-radio-button [disabled] = "disabled" color="warn" (click)="$event.stopPropagation()" *ngIf="radioButton"
+                            (change)="$event?ngOnRowsSelect(row):null" [checked]="selection.isSelected(row)">
+                        </mat-radio-button>
+                    </td>
+                </ng-container>
+
+                <!-- other Columns -->
+                <ng-container *ngFor="let column of columnsLocal" [matColumnDef]="column.name" [sticky]="column?.sticky">
+
+                    <ng-container [ngSwitch]="column.name">
+                        <!-- CASE Action -->
+                        <ng-container *ngSwitchCase="'action'">
+                            <!-- HEADER -->
+                            <ng-container *ngIf="column.name=='action'">
+                                <th mat-header-cell cdkDrag *matHeaderCellDef class="ta-c">
+                                    {{column.label}} </th>
+                            </ng-container>
+
+                            <td mat-cell *matCellDef="let row; let i = index;" [class]="column.className"
+                                (click)="$event.stopPropagation()">
+                                <ng-container *ngFor="let action of column.actions">
+                                    <ng-container *ngIf="checkActionConition(action, row,0)==false">
+                                        <button [disabled]="checkActionConition(action, row,1)==true"
+                                            (click)="ngOnEventColumnClick(row,i,action)" [matTooltip]="action.tooltip"
+                                            [color]="action.color || 'primary'" mat-button mat-icon-button
+                                            [class]="action.className">
+                                            <mat-icon>{{action.icon}}</mat-icon>
+                                        </button>
+                                    </ng-container>
+                                </ng-container>
+                            </td>
+                        </ng-container>
+
+                        <ng-container *ngSwitchDefault>
+                            <!-- HEADER -->
+                            <ng-container *ngIf="!column.options.sort">
+                                <th mat-header-cell cdkDrag  *matHeaderCellDef>
+                                    {{column.label}} </th>
+                            </ng-container>
+
+                            <ng-container *ngIf="column.options.sort">
+                                <th mat-header-cell cdkDrag  *matHeaderCellDef mat-sort-header disableClear>
+                                    {{column.label}} </th>
+                            </ng-container>
+
+                            <ng-container [ngSwitch]="column.type">
+
+                                <!-- CASE HYPERLINK -->
+                                <ng-container *ngSwitchCase="columnType.HYPERLINK">
+                                    <td mat-cell *matCellDef="let row; let id = index;" [class]="column.className">
+                                        <a class="hyperlink"
+                                            (click)="$event.stopPropagation();ngOnCustomEvent(row,id, column)">
+                                            {{row[column.name]}}
+                                        </a>
+                                    </td>
+                                </ng-container>
+
+                                <!-- CASE CUSTOMIZE STYLE -->
+                                <ng-container *ngSwitchCase="columnType.STYLE">
+                                    <td mat-cell   *matCellDef="let row; let id = index;" [class]="column.className">
+                                        <span [ngClass]="getStysle(row,column,id)">
+                                            {{row[column.name]}}
+                                        </span>
+                                    </td>
+                                </ng-container>
+
+                                <!-- CASE ICON -->
+                                <ng-container *ngSwitchCase="columnType.ICON">
+                                    <td mat-cell  *matCellDef="let row; let id = index;" [class]="column.className">
+                                        <mat-icon [ngClass]="getStysle(row,column,id)"
+                                            [matTooltip]="getTooltip(row,column,id)">
+                                            {{row[column.name] |
+                                            iconValue:id:row:column:columnsLocal:dataLocal.data}}
+                                        </mat-icon>
+                                    </td>
+                                </ng-container>
+
+                                <!-- CASE SHOW INPUT DATE WHEN SELECT ROW -->
+                                <ng-container *ngSwitchCase="columnType.SHOW_INPUT_DATE_WHEN_SELECT">
+                                    <td mat-cell  *matCellDef="let row; let id = index;" [class]="column.className">
+                                        <bpm-date-custom
+                                            *ngIf="selection.isSelected(row)"
+                                            [model]="row[column.name]"
+                                            [min]="column.minDate"
+                                            [max]="column.maxDate"
+                                            (onModelChange)="row[column.name] = $event">
+                                        </bpm-date-custom>
+
+                                        <span *ngIf="!selection.isSelected(row)">
+                                            {{row[column.name] | columnValue: optionsLocal:row:column:columnsLocal:dataLocal.data}}
+                                        </span>
+                                    </td>
+                                </ng-container>
+
+                                <!-- CASE SHOW INPUT WHEN SELECT ROW -->
+                                <ng-container *ngSwitchCase="columnType.SHOW_INPUT_WHEN_SELECT">
+                                    <td mat-cell  *matCellDef="let row; let id = index;" [class]="column.className">
+                                        <bpm-textarea
+                                            *ngIf="selection.isSelected(row)"
+                                            style="width: 200px; margin-top: 10px; margin-bottom: 10px;"
+                                            minRows = 3
+                                            [model]="row[column.name]"
+                                            maxLength="250"
+                                            (onModelChange)="row[column.name] = $event">
+                                        </bpm-textarea>
+
+                                        <span *ngIf="!selection.isSelected(row)">
+                                            {{row[column.name] | columnValue: optionsLocal:row:column:columnsLocal:dataLocal.data}}
+                                        </span>
+                                    </td>
+                                </ng-container>
+
+                                <!-- CASE Comment -->
+                                <ng-container *ngSwitchCase="columnType.COMMENT">
+                                    <td mat-cell  *matCellDef="let row" [ngClass]="column.className">
+                                        <span class="table-comment" matTooltip="{{row[column.name] | columnValue:optionsLocal:row:column:columnsLocal:dataLocal.data}}">
+                                            {{row[column.name] | columnValue:optionsLocal:row:column:columnsLocal:dataLocal.data}}
+                                        </span>
+                                    </td>
+                                </ng-container>
+
+                                <!-- CASE Default -->
+                                <ng-container *ngSwitchDefault>
+                                    <td mat-cell  *matCellDef="let row" [ngClass]="column.className">
+                                        {{row[column.name] | columnValue:
+                                        optionsLocal:row:column:columnsLocal:dataLocal.data}}</td>
+                                </ng-container>
+
+                            </ng-container>
+                        </ng-container>
+
+                    </ng-container>
+                </ng-container>
+
+                <!-- No data row -->
+                <ng-container matColumnDef="noData">
+                    <td mat-footer-cell  *matFooterCellDef colspan="999">
+                        <div class="footer-title">Không có dữ liệu</div>
+                    </td>
+                </ng-container>
+
+                <tr mat-header-row  *matHeaderRowDef="displayedColumns; sticky: true" ></tr>
+                <tr mat-row  *matRowDef="let row; let idr = index;columns: displayedColumns;"
+                    (click)="this.disabled ? $event.stopPropagation() : ngOnRowClick(row,idr)" [ngClass]="{highlighted: selection.isSelected(row)}"></tr>
+                <tr mat-footer-row  *matFooterRowDef="dataLocal?.filteredData?.length?[]:['noData']"></tr>
+            </table>
+        </div>
+        <mat-paginator *ngIf="this.optionsLocal?.pagination" [pageSize]="optionsLocal.rowsPerPage"
+            [pageSizeOptions]="optionsLocal.rowsPerPageOptions" showFirstLastButtons [length]="totalItems"
+            (page)="pageChange($event)"></mat-paginator>
+    </div>
+    <ng-container *ngIf="isAdd">
+        <div class="table-add-inside">
+            <bpm-card title="Thông tin chi tiết" paddingDefault="true">
+                <div fxLayout="row" fxLayoutAlign="start">
+                    <div class="bpm-wrapper-table-inside">
+                        <table mat-table [dataSource]="dataSourceAdd">
+                            <!-- Columns -->
+                            <ng-container *ngFor="let column of columnsAddLocal" [matColumnDef]="column.name">
+                                <!-- HEADER -->
+                                <th mat-header-cell *matHeaderCellDef>
+                                    {{column.label}} </th>
+
+                                <ng-container [ngSwitch]="column.type">
+
+                                    <!-- CASE DATE -->
+                                    <ng-container *ngSwitchCase="columnType.DATE">
+                                        <td mat-cell *matCellDef="let row" style="padding: 5px"
+                                            [class]="column.className">
+                                            <bpm-date-custom [model]="row[column.name]"
+                                                (onModelChange)="row[column.name]=$event">
+                                            </bpm-date-custom>
+                                        </td>
+                                    </ng-container>
+
+                                    <!-- CASE DATE TIME -->
+                                    <ng-container *ngSwitchCase="columnType.DATE_TIME">
+                                        <td mat-cell *matCellDef="let row" style="padding: 5px"
+                                            [class]="column.className">
+                                            <bpm-date-time [model]="row[column.name]"
+                                                (onModelChange)="row[column.name]=$event">
+                                            </bpm-date-time>
+                                        </td>
+                                    </ng-container>
+
+
+                                    <!-- CASE SELECT -->
+                                    <ng-container *ngSwitchCase="columnType.SELECT">
+                                        <td mat-cell *matCellDef="let row" style="padding: 5px"
+                                            [class]="column.className">
+                                            <bpm-select [options]="column.category" [model]="row[column.name]"
+                                                (onModelChange)="row[column.name]=$event">
+                                            </bpm-select>
+                                        </td>
+                                    </ng-container>
+
+                                    <!-- CASE MUTIL_SELECT -->
+                                    <ng-container *ngSwitchCase="columnType.MUTIL_SELECT">
+                                        <td mat-cell *matCellDef="let row" style="padding: 5px"
+                                            [class]="column.className">
+                                            <bpm-auto-complete [multiple]="true" [options]="column.category"
+                                                [model]="row[column.name]" (onModelChange)="row[column.name]=$event">
+                                            </bpm-auto-complete>
+                                        </td>
+                                    </ng-container>
+
+                                    <!-- CASE NUMBER -->
+                                    <ng-container *ngSwitchCase="columnType.NUMBER || columnType.MONEY">
+                                        <td mat-cell *matCellDef="let row" style="padding: 5px"
+                                            [class]="column.className">
+                                            <bpm-number [model]="row[column.name]"
+                                                (onModelChange)="row[column.name]=$event">
+                                            </bpm-number>
+                                        </td>
+                                    </ng-container>
+
+
+                                    <!-- CASE Default -->
+                                    <ng-container *ngSwitchDefault>
+                                        <td mat-cell *matCellDef="let row" style="padding: 5px"
+                                            [class]="column.className">
+                                            <bpm-input type="text" [model]="row[column.name]"
+                                                (onModelChange)="row[column.name]=$event">
+                                            </bpm-input>
+                                        </td>
+                                    </ng-container>
+                                </ng-container>
+                            </ng-container>
+
+                            <tr mat-header-row *matHeaderRowDef="displayedColumnsAdd; sticky: true"></tr>
+                            <tr mat-row *matRowDef="let row; columns: displayedColumnsAdd;"></tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="container-row mt-10px" fxLayout="row" fxLayoutAlign="center">
+                    <div fxFlex="100" fxLayout="row" fxLayoutAlign="center center">
+                        <bpm-button *ngIf="!isEdit" size="sm" type="mat-raised" icon="save" text="Lưu" color="primary"
+                            tooltip="Lưu" (click)="onAddData()">
+                        </bpm-button>
+                        <bpm-button *ngIf="isEdit" size="sm" type="mat-raised" icon="edit" text="Cập nhật"
+                            tooltip="Cập nhật" color="primary" (click)="onEditData()">
+                        </bpm-button>
+                        <bpm-button size="sm" type="mat-raised" icon="cancel" text="Huỷ" color="warn" tooltip="Huỷ"
+                            (click)="isAdd=false">
+                        </bpm-button>
+                    </div>
+                </div>
+            </bpm-card>
+        </div>
+    </ng-container>
+</div>

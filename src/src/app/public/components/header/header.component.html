@@ -1,0 +1,36 @@
+<div class="header">
+  <nav class="navbar navbar-inverse">
+    <div class="container-fluid  d-flex-wrap">
+      <div class="navbar-header">
+        <img
+          [routerLink]="['/']"
+          class="header-icon"
+          aria-hidden="false"
+          aria-label="Example home icon"
+          src="assets/images/logo_mbbank_white.png"
+        >
+      </div>
+      <div class="row ai-c">
+        <span class="pr-1r">Hello {{ userName }}</span>
+        <mat-icon
+          class="header-icon"
+          aria-hidden="false"
+          color="warm"
+          aria-label="Example home icon"
+          >notifications
+        </mat-icon>
+        <mat-icon
+          [matMenuTriggerFor]="headerMenu"
+          class="header-icon"
+          aria-hidden="false"
+          color="warm"
+          aria-label="Example home icon"
+          >person
+        </mat-icon>
+        <mat-menu #headerMenu>
+          <button mat-menu-item (click)="logout()">Đăng xuất</button>
+        </mat-menu>
+      </div>
+    </div>
+  </nav>
+</div>

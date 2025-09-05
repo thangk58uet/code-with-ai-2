@@ -1,0 +1,26 @@
+<!-- CASE DROPDOWN -->
+<div class="drop-down" [formGroup]="form">
+  <mat-select
+    [formControlName]="item.key"
+    [id]="id || item.key"
+    [placeholder]="item.placeholder"
+    class="form-control"
+    [class.form-error]="isValidControl(item.key)"
+    (openedChange)="openChange($event)"
+    (selectionChange)="selectionChange($event)"
+  >
+    <cdk-virtual-scroll-viewport
+      [itemSize]="5"
+      minBufferPx="200"
+      maxBufferPx="400"
+      [style.height.px]="item.options.length * 36"
+      class="options-container"
+    >
+      <mat-option *cdkVirtualFor="let opt of item.options; let i = index" [value]="opt.key">
+        {{ opt.value }} 
+      </mat-option>
+    </cdk-virtual-scroll-viewport>
+    <mat-option class="selected-options" *ngIf="form.get(item.key).value" [value]="form.get(item.key).value">{{ selectedLabel }}</mat-option>
+  </mat-select>
+  <mat-icon *ngIf="form.get(item.key).value !== null && !form.get(item.key).disabled" class="close-btn" (click)="removeValue()">close</mat-icon>
+</div>

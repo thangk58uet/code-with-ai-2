@@ -1,0 +1,21 @@
+<!-- CASE TEXTBOX -->
+<div class="" [formGroup]="form">
+  <div class="form-input-row">
+    <input
+      #inputElement
+      class="form-control"
+      [matDatepicker]="picker"
+      autocomplete="false"
+      [max]="item.max"
+      [class.form-error]="isValidControl(item.key)"
+      [min]="item.min"
+      [formControlName]="item.key"
+      (click)="picker.open()"
+      [id]="id || item.key"
+      [placeholder]="item.placeholder"
+    />
+    <mat-icon class="close-btn" *ngIf="inputElement.value && !form.get(item.key).disabled" (click)="deleteDate()">close</mat-icon>
+    <mat-datepicker-toggle *ngIf="!inputElement.value" matSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+  </div>
+</div>

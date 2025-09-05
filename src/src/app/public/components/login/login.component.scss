@@ -1,0 +1,83 @@
+@import "../../../../assets/styles/variables.scss";
+
+#password {
+  -webkit-text-secutiry: disc;
+}
+
+.mbb-icon {
+  margin-right: 0px !important;
+}
+
+.imgcontainer {
+  text-align: center;
+  padding: 0% 0 18% 0;
+}
+img.avatar {
+  max-width: 100%;
+}
+
+.login {
+  height: 96vh;
+  flex-direction: row;
+  box-sizing: border-box;
+  display: flex;
+  place-content: center;
+  align-items: center;
+}
+.login-background{
+  min-height: 100vh;
+  background-image: url('assets/images/bg.jpg');
+  background-size: cover;
+}
+.content-login {
+  width: 420px;
+  padding: 3rem;
+  background-color: #f6f6f6;
+  border-radius: 1rem;
+}
+.form-group-login {
+  background-color: #f6f6f6;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  margin-bottom: 1px;
+  padding: 4% 0 4% 0 !important;
+  position: relative;
+  font-family: Semibold;
+  font-style: bold;
+}
+.form-remark {
+  margin-top: 1rem;
+  font-family: RobotoItalic !important;
+  font-size: 1rem;
+  color: red;
+}
+.login-button {
+  justify-content: space-between !important;
+  width: 100%;
+  font-weight: 600;
+  margin-top: 2.28rem;
+  background-color: $color-blue-primary;
+  color: white;
+}
+.remember-text {
+  font-family: Semibold;
+  padding-left: 6%;
+}
+.bpm-title {
+  font-size: 35px;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+  font-family: Extrabold;
+  color: #303030;
+}
+.bpm-sub-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: #b2b2b2;
+  margin-bottom: 3.8rem;
+  font-family: Semibold;
+}
+.login-icon{
+  color: $color-blue-primary;
+}

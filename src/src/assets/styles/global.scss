@@ -1,0 +1,899 @@
+/* You can add global styles to this file, and also import other style files */
+@import "./variables.scss";
+@import "./mixins.scss";
+@import "./material.scss";
+@import "./bootstrap.scss";
+@import "./ng-select.scss";
+@import "./buttons.scss";
+@import "./ngx-toastr.scss";
+// @import "~bootstrap/scss/bootstrap";
+@import "./jsoneditor.scss";
+@import "./fonts.scss";
+@include mat-core();
+
+$my-app-primary: mat-palette($custom-collection, primary);
+$my-app-accent: mat-palette($custom-collection, success);
+$my-app-warm: mat-palette($custom-collection, secondary);
+$theme: mat-light-theme($my-app-primary, $my-app-accent, $my-app-warm);
+@include angular-material-theme($theme);
+
+*,
+:after,
+:before {
+  box-sizing: border-box;
+}
+
+.jsoneditor-poweredBy {
+  display: none;
+}
+
+.json-editor-container {
+  .jsoneditor {
+    height: 500px;
+  }
+}
+
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  // font-family: Roboto, "Helvetica Neue", sans-serif !important;
+  font-family: Tahoma, Geneva, sans-serif !important;
+}
+
+.form-error {
+  border-color: red !important;
+  &:focus {
+    box-shadow: 0 0 0 0.2rem rgba(255, 0, 0, 0.25) !important;
+  }
+  &-message {
+    color: red !important;
+    font-size: 11px;
+  }
+  .ng-select-container {
+    border-color: red !important;
+  }
+}
+
+.required {
+  color: red !important;
+}
+
+.c-pointer {
+  cursor: pointer;
+}
+
+.font-style-italic {
+  font-style: italic;
+}
+
+.hyperlink {
+  @extend .c-pointer;
+  color: $primary !important;
+  text-decoration: underline !important;
+}
+
+.form-control {
+  display: block;
+  width: 100%;
+  height: calc(0.5rem + 0.5rem + 2px);
+  padding: 0.25rem 0.5rem;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  min-height: 28px;
+}
+
+.form-input-row {
+  position: relative;
+}
+
+.form-group input:focus {
+  box-shadow: 0 0 0 0.2rem rgb(6 132 255 / 25%);
+}
+
+.form-group input:focus-visible {
+  outline: none;
+  border: 1px solid $primary;
+}
+
+.form-group textarea:focus {
+  box-shadow: 0 0 0 0.2rem rgb(6 132 255 / 25%);
+}
+
+.form-group textarea:focus-visible {
+  outline: none;
+  border: 1px solid $primary;
+}
+
+.form-input-row .mat-input-element {
+  border: 1px solid #ced4da;
+  padding: 0.25rem 0.5rem;
+  font-family: Tahoma, Geneva, sans-serif !important;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+
+.end-adornment-text {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  font-size: 10px;
+  color: $primary;
+}
+
+.form-input-row input.end-adornment-custom {
+  padding-right: 30px;
+}
+
+.form-group textarea.mat-input-element {
+  margin: 0;
+}
+
+.end-adornment-textArea {
+  background: #fff;
+  position: absolute;
+  bottom: -10px;
+  right: 20px;
+  font-size: 11px;
+  color: $primary;
+}
+
+.form-group label {
+  font-size: 12px;
+  word-wrap: break-word;
+}
+
+.form-group .inputNote {
+  font-size: 11px;
+  color: #949494;
+  word-wrap: break-word;
+}
+
+.d-flex-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 12px;
+}
+
+.d-flex-no-wrap {
+  display: flex;
+  flex-wrap: nowrap;
+  font-size: 12px;
+}
+
+.overflow-break-word {
+  word-wrap: break-word !important;
+  white-space: unset !important;
+  overflow-wrap: break-word;
+  word-break: break-word;
+  -webkit-hyphens: auto;
+  hyphens: auto;
+}
+
+.menu-tree-branch {
+  min-height: 48px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.12);
+  align-items: center;
+  .menu-icon {
+    min-width: 34px;
+  }
+  .row-cell {
+    @extend .overflow-break-word;
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.87);
+  }
+  .header-cell {
+    @extend .overflow-break-word;
+    color: rgba(0, 0, 0, 0.54);
+    font-size: 12px;
+    font-weight: 500;
+    &:first-child {
+      padding-left: 34px;
+    }
+  }
+}
+
+.cron-editor-tab-content {
+  height: auto !important;
+}
+
+.raised-section {
+  .section-title {
+    padding: 0.5rem 4rem 0.5rem 1rem;
+    width: 100%;
+    background-color: white;
+    border-top-right-radius: 0.5rem;
+    font-size: 16px;
+    border-top-left-radius: 0.5rem;
+    box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
+    border-bottom: 1px solid #e2e2e2;
+    color: $color-blue-primary;
+    font-family: Semibold;
+  }
+  .section-content {
+    box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
+    border-radius: 0 0rem 0.5rem 0.5rem;
+    padding: 0.5rem 0.5rem;
+    background-color: white;
+    position: relative;
+  }
+}
+.main-container {
+  position: relative;
+  padding-bottom: 1rem;
+}
+
+.status-label {
+  &-active {
+    color: green;
+  }
+  &-inactive {
+    color: red;
+  }
+}
+
+.container-box {
+  width: 100%;
+  height: auto;
+  min-height: 10rem;
+  max-height: 15rem;
+  overflow: auto;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  padding: 5px 10px;
+}
+
+.bpm-checkbox-horizontal {
+  .bpm-checkbox {
+    display: flex;
+    flex-direction: column;
+  }
+}
+.dialog-frame {
+  .mat-dialog-container {
+    padding: 0;
+  }
+  &-header {
+    background-color: $color-blue-primary;
+    padding: 9px 24px;
+    color: white;
+    font-weight: 500;
+  }
+  &-content {
+    padding: 9px 24px;
+  }
+}
+
+.container-row {
+  margin-bottom: 5px;
+}
+
+.material-icons {
+  font-size: 21px;
+}
+
+.header-button {
+  padding: 8px;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  background-color: white;
+  z-index: 100;
+  box-shadow: 0px 0px 4px -1px #000000;
+  transition: bottom 0.3s linear;
+}
+
+.main-container {
+  position: relative;
+  padding-top: 3rem;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+/*-------------------------------------Material card box--------------------------------------*/
+
+.card-box {
+  padding: 5px 5px 10px 5px;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  margin-bottom: 13px;
+  box-shadow: 0 3px 7px 0 rgb(0 0 0 / 19%);
+}
+
+.mat-card:not([class*="mat-elevation-z"]) {
+  padding: 5px 5px 10px 5px;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  margin-bottom: 13px;
+  box-shadow: 0 3px 7px 0 rgb(0 0 0 / 19%);
+}
+
+.mat-card-header .mat-card-title {
+  color: $primary;
+  padding-top: 4px;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.card-title {
+  color: $primary;
+  font-weight: 700;
+  padding-top: 4px;
+
+  h4 {
+    font-weight: 500;
+  }
+}
+
+.main-title {
+  color: $primary;
+  font-weight: 500;
+  font-size: 14px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+  h4 {
+    font-weight: 500;
+  }
+}
+
+.main-label {
+  font-size: 12px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-left: 5px;
+}
+
+.mat-card-header-text {
+  margin: 0 4px !important;
+}
+
+.mat-card .mat-card-footer {
+  margin: 0;
+}
+
+/*-------------------------------------END Material card box--------------------------------------*/
+
+/*------------------------------------- Material expansion panel--------------------------------------*/
+.mat-expansion-panel:not([class*="mat-elevation-z"]) {
+  border: 1px solid #d9d9d9;
+  box-shadow: 0 3px 7px 0 rgb(0 0 0 / 19%);
+}
+
+// .mat-expansion-panel {
+//   overflow: visible !important;
+// }
+
+.mat-expansion-panel .mat-expansion-panel-content {
+  height: auto !important;
+  visibility: visible !important;
+}
+
+.mat-expansion-panel:not(.mat-expanded) .mat-expansion-panel-content {
+  height: 0 !important;
+  visibility: hidden !important;
+}
+
+.mat-expansion-panel-header .mat-expansion-panel-header-title {
+  color: $color-blue-primary;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.mat-expansion-panel-content .mat-expansion-panel-body {
+  padding: 0 0 10px 0px;
+}
+
+.mat-expansion-panel:not(.mat-expanded),
+.mat-expansion-panel:not(.mat-expansion-panel-spacing) {
+  margin: 0.35rem 1px 0.35rem 1px;
+}
+
+.mat-expansion-panel .mat-expansion-panel-header {
+  padding: 0 10px;
+}
+
+.mat-expansion-panel .mat-expansion-panel-header.mat-expanded {
+  margin-bottom: 5px;
+}
+
+.mat-expansion-panel:not(.mat-expanded) .mat-expansion-panel-header:not([aria-disabled="true"]) {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.mat-expansion-panel .mat-expansion-panel-header.mat-expanded:hover {
+  background: rgba(0, 0, 0, 0.04);
+}
+
+/*-------------------------------------END Material expansion panel--------------------------------------*/
+
+.position-relative {
+  position: relative;
+}
+
+/*-------------------------------------Individual Css Form--------------------------------------*/
+.text-header {
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.custom-button-individual {
+  height: 30px;
+  color: #fff;
+  box-shadow: 0px 3px 1px -2px rgb(0 0 0 / 20%), 0px 2px 2px 0px rgb(0 0 0 / 14%), 0px 1px 5px 0px rgb(0 0 0 / 12%);
+  // background-color: #169bd5;
+  background-color: $color-blue-primary;
+  border: none;
+  border-radius: 4px;
+  font-weight: 500;
+  line-height: 0px !important;
+}
+
+/*-------------------------------------END Individual Css Form--------------------------------------*/
+
+/*-------------------------------------Mat Step--------------------------------------*/
+.mat-stepper-horizontal .mat-horizontal-content-container {
+  overflow: visible;
+  padding: 0 4px 10px 4px;
+}
+
+.mat-horizontal-stepper-header-container .mat-horizontal-stepper-header {
+  display: flex;
+  height: 50px;
+  overflow: hidden;
+  align-items: center;
+  padding: 0 10px;
+}
+.mat-step-header .mat-step-text-label {
+  color: $primary;
+}
+
+.mat-step-header .mat-step-label-selected {
+  font-weight: 900;
+}
+/*-------------------------------------END Mat Step--------------------------------------*/
+
+/*-------------------------------------END Mat Tab--------------------------------------*/
+
+.mat-tab-body .mat-tab-body-content {
+  height: 100%;
+  overflow: hidden;
+}
+// .mat-tab-group .mat-tab-body-wrapper {
+//  // overflow: visible;
+// }
+
+// .mat-tab-body-wrapper > mat-tab-body {
+//   overflow: visible !important;
+// }
+
+// .mat-tab-body-wrapper .mat-tab-body .mat-tab-body-content {
+//   overflow: visible !important;
+// }
+/*-------------------------------------END Mat Tab--------------------------------------*/
+
+/*-------------------------------------START Button--------------------------------------*/
+.mat-raised-button {
+  padding: 0 10px;
+}
+
+button > span.mat-button-wrapper {
+  font-size: 12px;
+  white-space: normal;
+  word-wrap: normal;
+}
+
+button.button-sm {
+  line-height: 28px;
+  padding: 0 10px;
+}
+
+button.button-md {
+  line-height: 32px;
+  padding: 0 10px;
+}
+
+button.button-lg {
+  line-height: 36px;
+  padding: 0 10px;
+}
+
+.close-btn {
+  position: absolute;
+  top: 0.55rem;
+  right: 0.85rem;
+  font-size: 12px !important;
+  font-weight: 600;
+  color: #999;
+  cursor: pointer;
+  &:hover {
+    color: red;
+  }
+}
+
+button.btn-wrap {
+  white-space: normal;
+  word-wrap: normal;
+}
+
+/*-------------------------------------END Button--------------------------------------*/
+
+/*-------------------------------------START Radio Group--------------------------------------*/
+
+.form-input-row .bpm-radio-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-input-row .bpm-radio-button {
+  margin-bottom: 5px;
+}
+
+.mat-radio-horizontal .mat-radio-group .mat-radio-button {
+  margin-right: 16px;
+}
+/*-------------------------------------END Radio Group--------------------------------------*/
+
+/*-------------------------------------START Mat checkbox --------------------------------------*/
+
+.form-group .mat-checkbox {
+  margin-right: 16px;
+}
+
+/*-------------------------------------END Mat checkbox--------------------------------------*/
+
+/*-------------------------------------START Paging checkbox --------------------------------------*/
+.mat-paginator .mat-paginator-container {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  min-height: 48px;
+  padding: 0 8px;
+  flex-wrap: wrap-reverse;
+  width: 100%;
+}
+
+/*-------------------------------------START Dialog checkbox --------------------------------------*/
+.mat-dialog-container {
+  padding: 0 !important;
+}
+
+/*-------------------------------------START MAT TABLE checkbox --------------------------------------*/
+.bpm-mat-table {
+  display: inline-block;
+  min-width: 100%;
+  box-shadow: 0px 2px 4px -1px rgb(0 0 0 / 20%), 0px 4px 5px 0px rgb(0 0 0 / 12%), 0px 1px 10px 0px rgb(0 0 0 / 10%);
+}
+
+table {
+  width: 100%;
+}
+
+.bpm-wrapper-table {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.bpm-wrapper-table-inside {
+   width: 100%;
+  // height:100%;
+  // overflow-x: auto;
+  // //overflow-y: auto;
+}
+
+// Fix for empty table footer
+tr:empty {
+  display: none;
+}
+
+th.mat-header-cell:first-of-type {
+  // padding-left: 20px;
+  // padding-right: 20px;
+}
+
+.mat-column-select {
+  overflow: initial;
+}
+
+.mat-table .mat-row:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+.mat-table .mat-footer-row:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+}
+
+.toolbar-left .toolbar-title {
+  margin: 0;
+  display: block;
+  color: $primary;
+  font-weight: 500;
+  font-size: 12px;
+  padding-top: 10px;
+  align-items: center;
+}
+
+.bpm-mat-table .measure {
+  padding: 2px 2px 2px 0;
+  font-size: 12px;
+  max-height: 10px;
+}
+
+.mat-table .mat-footer-row {
+  text-align: center;
+}
+
+.toolbar-left {
+  flex: 1 1 100%;
+  //line-height: 50px;
+}
+
+.toolbar-left .mat-icon-button {
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.toolbar-right {
+  text-align: right;
+  flex: 0 0 260px;
+  line-height: 50px;
+}
+
+.toolbar {
+  min-height: 50px;
+  max-height: 50px;
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  padding-left: 10px;
+  padding-right: 5px;
+}
+
+.toolbar .toolbar-right .mat-icon-button {
+  color: rgba(0, 0, 0, 0.54);
+}
+
+.toolbar .mat-icon-button:hover {
+  color: $primary;
+}
+
+.toolbar .cancelSearch:hover {
+  color: red;
+}
+
+.toolbar .searchBar {
+  width: 50%;
+}
+
+.toolbar .searchDiv {
+  opacity: 1;
+  transform: scale(1, 1) translateZ(0px);
+  transition: opacity 300ms cubic-bezier(0.4, 0, 0.2, 1) 0ms, transform 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+}
+
+/* Start icon alignment fix here */
+.toolbar .mat-form-field-prefix mat-icon {
+  bottom: -4px;
+  position: absolute;
+  left: 3px;
+}
+
+.toolbar .mat-form-field-infix {
+  padding-left: 30px;
+}
+
+.toolbar .mat-form-field-label-wrapper {
+  left: 30px;
+}
+
+// .mat-form-field-appearance-outline.mat-focused .mat-form-field-outline-thick {
+//     color: #084f00;
+// }
+
+/* End icon alignment fix here */
+
+@media (max-width: 600px) {
+  .toolbar {
+    max-height: 200px;
+    display: block;
+  }
+  .toolbar-left {
+    text-align: center;
+  }
+  .toolbar-right {
+    text-align: center;
+  }
+}
+
+.mat-table tr.mat-header-row {
+  height: 36px;
+  cursor: pointer;
+}
+
+.mat-table tr.mat-row,
+.mat-table tr.mat-footer-row {
+  height: 35px;
+  cursor: pointer;
+}
+
+.mat-table th.mat-header-cell:first-of-type,
+.mat-table td.mat-cell:first-of-type,
+.mat-table td.mat-footer-cell:first-of-type {
+  padding-left: 5px;
+  //text-align: center;
+}
+
+.mat-table .mat-header-row th.mat-header-cell:last-of-type,
+.mat-table td.mat-cell:last-of-type,
+.mat-table td.mat-footer-cell:last-of-type {
+  padding-right: 5px;
+}
+
+.mat-table .mat-header-row th.mat-header-cell,
+.mat-table td.mat-cell,
+.mat-table td.mat-footer-cell {
+  border-right: 1px solid #e4e4e4;
+  padding: 0px 5px;
+}
+
+.mat-table .mat-header-cell {
+  color: #000;
+  font-weight: 600;
+}
+
+.mat-table .mat-cell,
+.mat-table .mat-footer-cell {
+  font-size: 12px;
+}
+
+.mat-table .mat-cell .mat-icon-button {
+  padding: 0;
+  min-width: 0;
+  width: 35px;
+  height: 35px;
+  flex-shrink: 0;
+  line-height: 35px;
+  border-radius: 50%;
+}
+.mat-table .footer-title {
+  margin: 0;
+  display: block;
+  color: $primary;
+  font-weight: 500;
+  font-size: 12px;
+  align-items: center;
+}
+
+.table-add-inside {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: hsla(0, 0%, 100%, 0.8);
+  z-index: 200;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  padding: 15px;
+  overflow: auto;
+}
+
+/*-------------------------------------START Loading  --------------------------------------*/
+.loading-spinner {
+  background-color: #0000001f;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  align-items: center;
+  justify-content: center;
+  display: grid;
+  z-index: 99999;
+}
+
+.loading-spinner img {
+  align-self: end;
+}
+
+.loading-message {
+  text-align: center;
+  align-self: start;
+}
+
+.global-loader-fade-in {
+  opacity: 0;
+}
+
+.global-loader-hidden {
+  display: none !important;
+}
+
+/*---------------------------------------- START Mat Dialog ----------------------------------*/
+.mat-dialog-content-minimize {
+  overflow: hidden !important;
+}
+
+.bpm-dialog-title {
+  font-size: 14px;
+  font-weight: 500;
+  background-color: $color-blue-primary;
+  color: #fff;
+  margin-bottom: 1rem;
+}
+
+.dialog-title {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.bpm-dialog-title:hover {
+  cursor: move;
+}
+
+.bpm-dialog-title > button.btn-wrap {
+  padding: 0;
+  min-width: 0;
+  width: 24px;
+  height: 40px;
+  flex-shrink: 0;
+  line-height: 40px;
+  border-radius: 50%;
+}
+
+.mat-input-element:disabled, .mat-form-field-type-mat-native-select.mat-form-field-disabled 
+.mat-form-field-infix::after, .mat-radio-button.mat-radio-disabled .mat-radio-label-content {
+    color: black !important;
+}
+
+.mat-tab-list {
+    background-color: white;
+}
+.mat-tab-label {
+    background-color: white !important;
+    color: #1565C0 !important;
+}
+
+/* Styles for the active tab label */
+.mat-tab-label.mat-tab-label-active {
+    background-color: #1565C0 !important;
+    color: white !important;
+}
+
+.input-date {
+  display: block;
+  width: 80%;
+  height: calc(0.5rem + 0.5rem + 2px);
+  padding: 0.25rem 0.5rem;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.5;
+  color: #495057;
+  background-color: #fff;
+  background-clip: padding-box;
+  border: 1px solid #ced4da;
+  border-radius: 0.25rem;
+  min-height: 28px;
+  margin-left: 5px;
+}
+
+

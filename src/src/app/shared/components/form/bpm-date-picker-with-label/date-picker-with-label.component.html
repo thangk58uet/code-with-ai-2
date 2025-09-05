@@ -1,0 +1,43 @@
+<div fxLayout="row wrap" fxFlex="100" class="ml-5px mr-5px" *ngIf="visible; else false" >
+    <div  *ngIf="label != '' && flexLabel !=0" class="form-group" [fxFlex.gt-xs]="flexLabel" [fxFlex.gt-sm]="flexLabel" fxFlex="100">
+        <label for="{{label}}" class="" [style.font-weight]="boldLabel" [style.color]="colorLabel">{{label}}<span *ngIf="required" class="required">*</span>
+        </label>
+    </div>
+    <div class="form-group" [fxFlex.gt-xs]="flexInput" [fxFlex.gt-sm]="flexInput" fxFlex="100">
+          <div class="form-input-row">
+              <input
+                class="form-control"
+                [ngClass] = "{'form-error': name.errors && name.invalid && (name.dirty || name.touched)}"
+                autocomplete="false"
+                matInput
+                #name="ngModel"
+                #inputDateElement
+                [id]="id"
+                [placeholder]="placeholder"
+                [ngModel]="model"
+                [matDatepicker]="datePicker"
+                [max]="maxDate"
+                [min]="minDate"
+                [matDatepickerFilter]="myFilter"
+                [required]="required || false"
+                [disabled]="(disabled===true || false)"
+                readonly
+                (blur)="ngOnBlur($event)"
+                (dateInput)="ngOnInput($event)"
+                (click)="datePicker.open()"
+                (ngModelChange)="ngModelChange($event)"
+                />
+                <mat-icon class="close-btn" *ngIf="name.value && !disabled" (click)="deleteDate()">close</mat-icon>
+                <mat-datepicker-toggle *ngIf="!name.value" matSuffix [for]="datePicker"></mat-datepicker-toggle>
+                <mat-datepicker #datePicker></mat-datepicker>
+          </div>
+    </div>    
+    <div fxLayout="row wrap" fxFlex="100" *ngIf="name.invalid && (name.dirty || name.touched)">
+        <div [fxFlex.gt-xs]="flexLabel" [fxFlex.gt-sm]="flexLabel" fxFlex="100"></div>
+        <div [fxFlex.gt-xs]="flexInput" [fxFlex.gt-sm]="flexInput" fxFlex="100" fxFlexAlign="center">
+            <div *ngIf="name.errors?.required" class="form-error-message">
+                {{'Vui lòng nhập ' +(label || placeholder || requiredStr || '')}}
+            </div>
+        </div>
+    </div> 
+</div>

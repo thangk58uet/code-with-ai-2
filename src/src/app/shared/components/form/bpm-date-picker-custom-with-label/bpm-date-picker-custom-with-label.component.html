@@ -1,0 +1,78 @@
+<div fxLayout="row wrap" fxFlex="100" class="mr-5px custom-date" *ngIf="visible; else false" >
+    <div  *ngIf="label != '' && flexLabel !=0" class="form-group" [fxFlex.gt-xs]="flexLabel" [fxFlex.gt-sm]="flexLabel" fxFlex="100">
+        <label for="{{label}}" class="" [style.font-weight]="boldLabel" [style.color]="colorLabel">{{label}}<span *ngIf="required" class="required">*</span>
+        </label>
+    </div>
+    <div [fxFlex.gt-xs]="flexInput" [fxFlex.gt-sm]="flexInput" fxFlex="100"> 
+        <div class="input-custom-date" [ngStyle]="{'background-color': disabled ? '#e9ecef' : null }">
+            <input 
+              type="text" 
+              [(ngModel)]="day" 
+              (ngModelChange)="onChangeDay($event)"
+              (keypress)="keyPressDay($event)"
+              (keydown.ArrowRight)="onRightDay($event)"
+              (blur)="onBlurDay($event)"
+              [disabled]="disabled"
+              #name="ngModel"
+              #dayElement
+              pattern="\d*" 
+              maxlength="2" 
+              placeholder="dd" 
+              style="width: 20px; text-align: right;" 
+              >
+            <span style="font-size: 13px;">/</span>
+            <input 
+              type="text" 
+              [(ngModel)]="month" 
+              (ngModelChange)="onChangeMonth($event)"
+              (blur)="onBlurMonth($event)"
+              (focus)="focusMonth()"
+              (keypress)="keyPressMonth($event)"
+              (keydown.ArrowLeft)="onLeftMonth($event)"
+              (keydown.ArrowRight)="onRightMonth($event)"
+              (keydown)="onKeyDownMonth($event)"
+              
+              [disabled]="disabled"
+              #name="ngModel"
+              #monthElement
+              pattern="\d*" 
+              maxlength="2" 
+              placeholder="mm"
+              style="width: 23px; text-align: center;"
+              >
+            <span style="font-size: 13px;">/</span>
+            <input 
+              type="text" 
+              [(ngModel)]="year" 
+              (ngModelChange)="onChangeYear($event)"
+              (blur)="onBlurYear($event)"
+              (focus)="focusYear()"
+              (keypress)="keyPressYear($event)"
+              (keydown.ArrowLeft)="onLeftYear($event)"
+              (keydown)="onKeyDownYear($event)"
+              [disabled]="disabled"
+              #name="ngModel"
+              #yearElement
+              pattern="\d*"
+              maxlength="4" 
+              placeholder="yyyy" 
+              style="width: 35px; text-align: left;" 
+              >
+              <mat-icon class="close-btn" *ngIf="model && !disabled" (click)="deleteDate()">close</mat-icon>
+              <mat-form-field appearance="fill" *ngIf="!disabled">
+                <input matInput [matDatepicker]="picker" [min]="minDate" [max]="maxDate" (dateChange)="onDateChanged($event)" [formControl]="dateDisplayInCalendar">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+            
+        </div>
+        
+    </div>    
+    <div fxLayout="row wrap" fxFlex="100" *ngIf="errStr">
+        <div [fxFlex.gt-xs]="flexInput" [fxFlex.gt-sm]="flexInput" fxFlex="100" fxFlexAlign="center">
+            <div class="form-error-message">
+                {{ errStr }}
+            </div>
+        </div>
+    </div> 
+</div>

@@ -1,0 +1,41 @@
+<div class="" fxLayout="row wrap" fxFlex="100" class="ml-5px mr-5px" *ngIf="visible; else false" >
+    <div  *ngIf="label != '' && flexLabel !=0" class="form-group" [fxFlex.gt-xs]="flexLabel" [fxFlex.gt-sm]="flexLabel" fxFlex="100">
+        <label for="{{label}}" class="">{{label}}<span *ngIf="required" class="required">*</span>
+        </label>
+    </div>
+    <div class="form-group" [fxFlex.gt-xs]="flexInput" [fxFlex.gt-sm]="flexInput" fxFlex="100">
+          <div class="form-input-row">
+              <input
+                class="form-control"
+                [ngClass] = "{'form-error': name.errors && name.invalid && (name.dirty || name.touched)}"
+                autocomplete="false"
+                matInput
+                #name="ngModel"
+                #inputDateTimeElement
+                [id]="id"
+                [placeholder]="placeholder"
+                [ngModel]="model"
+                [ngxMatDatetimePicker]="dateTimePicker"
+                [max]="maxDate"
+                [min]="minDate"
+                [required]="required || false"
+                [disabled]="(disabled===true || false)"
+                readonly
+                (blur)="ngOnBlur($event)"
+                (click)="dateTimePicker.open()"
+                (ngModelChange)="ngModelChange($event)"
+                />
+                <mat-icon class="close-btn" *ngIf="name.value && !disabled" (click)="deleteDate()">close</mat-icon>
+                <mat-datepicker-toggle *ngIf="!name.value" matSuffix [for]="dateTimePicker"></mat-datepicker-toggle>
+                <ngx-mat-datetime-picker #dateTimePicker ></ngx-mat-datetime-picker>
+          </div>
+    </div>    
+    <div fxLayout="row wrap" fxFlex="100" *ngIf="name.invalid && (name.dirty || name.touched)">
+        <div [fxFlex.gt-xs]="flexLabel" [fxFlex.gt-sm]="flexLabel" fxFlex="100"></div>
+        <div [fxFlex.gt-xs]="flexInput" [fxFlex.gt-sm]="flexInput" fxFlex="100" fxFlexAlign="center">
+            <div *ngIf="name.errors?.required" class="form-error-message">
+                {{'Vui lòng nhập ' + (label || placeholder || '')}}
+            </div>
+        </div>
+    </div> 
+</div>

@@ -1,0 +1,22 @@
+@import "../../../../assets/styles/variables.scss";
+.navbar {
+    background: $color-blue-primary;
+    padding: 5px 10px;
+    .container-fluid {
+        align-items: center;
+        justify-content: space-between;
+        color:white;
+        .header-icon {
+            margin-right: 0.5rem;
+            cursor: pointer;
+        }
+        img.header-icon {
+            width: 70px;
+        }
+    }
+}
+.header {
+    position: absolute;
+    top: 0;
+    width: 100%;
+}

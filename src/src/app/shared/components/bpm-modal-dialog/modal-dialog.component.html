@@ -1,0 +1,41 @@
+<div cdkDrag  cdkDragRootElement=".cdk-overlay-pane" (mousedown)="toTop()" (cdkDragEnded)="dragEnded($event)">
+    <div fxLayout="row wrap" fxLayout.gt-xs="row wrap" style="max-height: 45px;" cdkDragHandle>
+      <div fxFlex="100" class="bpm-dialog-title">
+        <div fxFlex="75" fxLayoutAlign="start center">
+          <span class="dialog-title ml-10px mr-5px">{{ modal.options.title }}</span>
+        </div>
+        <div fxFlex="25" fxLayoutAlign="end" class="bpm-dialog-header-icon">
+          <bpm-button type="mat-icon" (click)="$event.stopPropagation();minimize()" tooltip="Minimize" icon="remove"
+            *ngIf="!isMinimize">
+          </bpm-button>
+          <ng-container *ngIf="!this.hiddenFullScreenIcon">
+              <bpm-button type="mat-icon" (click)="$event.stopPropagation();openFullscreen()" *ngIf="!fullscreen"
+                          tooltip="Fullscreen" icon="open_in_full">
+              </bpm-button>
+              <bpm-button type="mat-icon" (click)="$event.stopPropagation();closeFullscreen()" *ngIf="fullscreen"
+                          tooltip="Close Fullscreen" icon="close_fullscreen">
+              </bpm-button>
+          </ng-container>
+          <bpm-button type="mat-icon" (click)="$event.stopPropagation();close()" tooltip="Close" icon="close">
+          </bpm-button>
+        </div>
+      </div>
+    </div>
+
+    <div fxLayout="column" fxLayout.gt-xs="row wrap">
+      <mat-dialog-content fxFlex="100" [ngClass]="getContentClass()">
+        <ng-template #component></ng-template>
+      </mat-dialog-content>
+    </div>
+
+    <div fxLayout="column" fxLayout.gt-xs="row wrap" *ngIf="modal.options.footer" class="mb-5px">
+      <div fxFlex="100" class="bpm-action-footer" fxLayoutAlign="end center" class="p-5px">
+        <ng-container [ngTemplateOutlet]="actionsFooter"></ng-container>
+
+        <bpm-button *ngIf="modal.options.close" text="Đóng" type="mat-raised" size="sm" color="warn" icon="close"
+          (click)="close()" tooltip="Đóng modal">
+          Close
+        </bpm-button>
+      </div>
+    </div>
+  </div>

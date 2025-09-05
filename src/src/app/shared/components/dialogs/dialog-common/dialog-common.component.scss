@@ -1,0 +1,17 @@
+@import "../../../../../assets/styles/variables.scss";
+
+.dialog-content {
+  margin: 0 0.25rem;
+  margin-bottom: 1rem;
+}
+
+.bpm-dialog-title{
+  background-color: $color-blue-primary;
+  color: #fff;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+}
+.bpm-dialog-content{
+  padding: 0 10px 10px 10px;
+}
+

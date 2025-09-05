@@ -1,0 +1,25 @@
+.tree-item-container {
+  padding-top: 0.5rem;
+  .tree-item-content {
+      display: flex;
+      .tree-navigator {
+          display: flex;
+          width: 1.5rem;
+      }
+      .tree-item-title {
+          display: flex;
+          font-weight: 500;
+      }
+      .tree-item-checkbox {
+          padding: 0 10px;
+      }
+  }
+  .tree-item-child {
+      padding-left: 1rem;
+  }
+}
+
+.box-empty {
+    width: 24px;
+    height: 24px;
+}

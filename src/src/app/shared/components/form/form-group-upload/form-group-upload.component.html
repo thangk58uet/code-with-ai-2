@@ -1,0 +1,34 @@
+<div class="" [formGroup]="form">
+  <div class="form-input-row row">
+    <input
+      #inputElement
+      class="form-control"
+      [class.form-error]="isValidControl(item.key)"
+      (blur)="markTouched()"
+      [placeholder]="item.placeholder"
+      readonly
+      [id]="id || item.key"
+    />
+    <button
+      class="btn btn-remove"
+      *ngIf="inputElement.value"
+      (click)="removeFile()"
+    >
+      <mat-icon>close</mat-icon>
+    </button>
+    <button
+      class="btn btn-primary btn-upload"
+      (click)="inputUpload.click(); markTouched()"
+    >
+      <mat-icon>file_upload</mat-icon>
+    </button>
+    <input
+      #inputUpload
+      class="form-control"
+      [id]="item.key"
+      type="file"
+      (change)="getBase64($event)"
+      hidden
+    />
+  </div>
+</div>

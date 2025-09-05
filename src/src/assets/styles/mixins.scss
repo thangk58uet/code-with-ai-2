@@ -1,0 +1,99 @@
+/* ===== JUSTIFY-CONTENT classes =====
+  $justify-content: c center, sb space-between, fe flex-end, fs flex-start;
+  Ex: .jc-c => justify-center: center
+*/
+@each $name, $value in $justify-content {
+  .jc-#{$name} {
+    justify-content: $value !important;
+  }
+}
+
+/* ===== ALIGN-ITEM classes =====
+  $align-items: c center, fe flex-end, fs flex-start;
+  Ex: .ai-c => align-item: center
+*/
+@each $name, $value in $align-items {
+  .ai-#{$name} {
+    align-items: $value !important;
+  }
+}
+
+/* ===== TEXT-ALIGN classes =====
+  $text-align: l left, r right, c center;
+  Ex: .ta-c => text-align: center
+*/
+@each $name, $value in $text-align {
+  .ta-#{$name} {
+    text-align: $value !important;
+  }
+}
+
+/* ===== WIDTH LENGTH classes =====
+    Ex: .w-10 => width: 10%
+*/
+@for $i from 1 through 20 {
+  .w-#{($i * 5)} {
+    width: ($i * 5%) !important;
+  }
+}
+
+/* ===== PADDING & MARGIN classes =====
+  $spacing: p padding, m margin;
+  $spacing-direction: l left, r right, t top, b bottom;
+  r: rem
+  px: pixel
+
+  Ex: .pr-1r => padding-right: 1 rem
+
+  other: x top & bottom, y right & left, none* all sides
+  Ex: px-1r => padding: 1rem 0 1rem 0
+      p-1r => padding: 1rem
+*/
+@each $symbol, $spacing-method in $spacing {
+  @each $dir, $direction in $spacing-direction {
+    @for $i from 0 through 20 {
+      .#{$symbol}#{$dir}-#{$i}r {
+        #{$spacing-method}-#{$direction}: #{$i}rem !important;
+      }
+      .#{$symbol}#{$dir}-#{$i * 5}px {
+        #{$spacing-method}-#{$direction}: #{$i * 5}px !important;
+      }
+    }
+  }
+  @for $i from 0 through 20 {
+    .#{$symbol}y-#{$i}r {
+      #{$spacing-method}: #{$i}rem 0 #{$i}rem 0 !important;
+    }
+    .#{$symbol}y-#{$i * 5}px {
+      #{$spacing-method}: #{$i * 5}px 0 #{$i * 5}px 0 !important;
+    }
+    .#{$symbol}x-#{$i}r {
+      #{$spacing-method}: 0 #{$i}rem 0 #{$i}rem !important;
+    }
+    .#{$symbol}x-#{$i * 5}px {
+      #{$spacing-method}: 0 #{$i * 5}px 0 #{$i * 5}px !important;
+    }
+    .#{$symbol}-#{$i}r {
+      #{$spacing-method}: #{$i}rem !important;
+    }
+    .#{$symbol}-#{$i * 5}px {
+      #{$spacing-method}: #{$i * 5}px !important;
+    }
+  }
+}
+
+/* ===== FONTS classes =====
+    Ex: 
+      .font-w-100 => font-weight: 100
+      .font-sz-10 => font-size: 10px
+*/
+@for $i from 1 through 10 {
+  .font-w-#{($i * 100)} {
+    font-weight: ($i * 100) !important;
+  }
+}
+@for $i from 1 through 100 {
+  .font-sz-#{($i)} {
+    font-size: #{$i}px !important;
+  }
+}

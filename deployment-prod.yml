@@ -1,0 +1,77 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: code-with-ai-deployment
+spec:
+  selector:
+    matchLabels:
+      name: code-with-ai
+  replicas: 2
+  template:
+    metadata:
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "10406"
+        prometheus.io/path: "/actuator/prometheus"
+      labels:
+        name: code-with-ai
+    spec:
+      hostAliases:
+        - ip: 10.1.18.193
+          hostnames:
+            - esbinternal.mbbank.com.vn
+        - ip: 10.1.12.164
+          hostnames:
+            - esbinternet.mbbank.com.vn
+        - ip: 10.1.12.164
+          hostnames:
+            - esbexternal.mbbank.com.vn
+      terminationGracePeriodSeconds: 310
+      volumes:
+      - downwardAPI:
+          defaultMode: 420
+          items:
+          - fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.labels
+            path: labels
+          - fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.annotations
+            path: annotations
+        name: podinfo
+      containers:
+        - name: code-with-ai
+          image: 10.1.27.43/uat-bpm-tttm/code-with-ai:1.0.0
+          imagePullPolicy: Always
+          resources:
+            requests:
+              memory: 128Mi
+            limits:
+              memory: 2Gi
+          ports:
+            - containerPort: 10406
+          env:
+            - name: TZ
+              value: Asia/Ho_Chi_Minh
+          volumeMounts:
+          - mountPath: /deployment/podinfo
+            name: podinfo
+            readOnly: true
+      imagePullSecrets:
+        - name: harbor-secret-registry
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    name: code-with-ai-service
+  name: code-with-ai-service
+spec:
+  type: NodePort
+  ports:
+    - nodePort: 10406
+      port: 10406
+      targetPort: 10406
+  selector:
+    name: code-with-ai

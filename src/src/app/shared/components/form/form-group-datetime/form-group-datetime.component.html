@@ -1,0 +1,19 @@
+<div [formGroup]="form">
+  <div class="form-input-row">
+      <input
+        matInput
+        class="form-control-custom"
+        [ngxMatDatetimePicker]="picker1"
+        [formControlName]="item.key"
+        (click)="picker1.open()"
+        [placeholder]="item.placeholder"
+        [class.form-error]="isValidControl(item.key)"
+        autocomplete="false"
+        [max]="maxDate"
+        [min]="minDate"
+        [id]="id || item.key"
+      />
+      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+      <ngx-mat-datetime-picker #picker1 ></ngx-mat-datetime-picker>
+  </div>
+</div>

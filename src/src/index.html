@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <title>BPM LCXK NEW</title>
+  <base href="/" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500&display=swap" rel="stylesheet">
+  <style>
+    .loading-spinner {
+      background-color: #0000001f;
+      position: absolute;
+      width: 100%;
+      top: 0px;
+      left: 0px;
+      height: 100vh;
+      align-items: center;
+      justify-content: center;
+      display: grid;
+      z-index: 1000;
+    }
+
+    .loading-spinner img {
+      align-self: end;
+    }
+
+    .loading-message {
+      text-align: center;
+      align-self: start;
+    }
+  </style>
+</head>
+
+<body class="mat-typography">
+  <app-root></app-root>
+  <!--pre loading -->
+  <div class="loading-spinner" id="globalLoader">
+    <img src="assets/images/starttt.gif" style="width: 80px;">
+    <span class="loading-message" >Please wait...</span>
+  </div>
+</body>
+
+</html>

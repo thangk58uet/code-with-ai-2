@@ -1,0 +1,16 @@
+<!-- CASE TEXTAREA -->
+<div class="" [formGroup]="form">
+  <div class="form-input-row">
+    <textarea
+      matInput
+      class="form-control"
+      [formControlName]="item.key"
+      [placeholder]="item.placeholder"
+      [class.form-error]="isValidControl(item.key)"
+      [id]="id || item.key"
+      cdkTextareaAutosize
+      cdkAutosizeMinRows="3"
+      cdkAutosizeMaxRows="4"
+    ></textarea>
+  </div>
+</div>

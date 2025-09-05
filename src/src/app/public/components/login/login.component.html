@@ -1,0 +1,29 @@
+<div class="login-background">
+  <div class="login" fxLayout="row" fxLayoutAlign="center center">
+    <div class="content-login">
+      <div fxLayout="column" fxLayoutAlign="space-around">
+        <div class="imgcontainer">
+          <img src="assets/images/login_avatar.png" alt="Avatar" class="avatar">
+        </div>
+        <div fxFlex="100">
+          <form [formGroup]="loginForm" class="mrt-4" (ngSubmit)="login()">
+            <mat-form-field class="form-group-login">
+              <mat-label>Tài khoản</mat-label>
+              <input #username matInput formControlName="username" autofocus>
+              <mat-icon matSuffix class="login-icon">account_circle</mat-icon>
+            </mat-form-field>
+            <mat-form-field class="form-group-login">
+              <mat-label>Mật khẩu</mat-label>
+              <input matInput type="password" formControlName="password" autocomplete="off" id="passwordLogin">
+              <mat-icon matSuffix class="login-icon">lock</mat-icon>
+            </mat-form-field>
+            <div style="padding-top: 4%;">
+              <mat-checkbox checked="checked" name="remember">Remember me</mat-checkbox>
+            </div>
+            <button class="login-button" mat-raised-button type="submit">ĐĂNG NHẬP</button>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

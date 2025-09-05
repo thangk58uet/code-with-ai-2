@@ -1,0 +1,8 @@
+<div class="filter-input py-10px">
+  <div class="w-90"><input class="form-control" [(ngModel)]="filterValue"  (ngModelChange)="filterMenu($event)"/></div>
+  <div class="w-10 menu-btn"><mat-icon (click)="showMenu()">list</mat-icon></div>
+  
+</div>
+<div *ngFor="let sub of filteredMenu">
+  <app-sub-menu [subMenu]="sub"></app-sub-menu>
+</div>

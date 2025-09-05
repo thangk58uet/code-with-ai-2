@@ -1,0 +1,10 @@
+<div [formGroup]="form">
+      <div fxLayout="row wrap" fxLayoutAlign="center">
+            <div *ngFor="let item of items" fxFlex.gt-sm="{{(item.colOfRow -1)}}" fxFlex.gt-xs="{{(item.colOfRow-1)}}"
+                  fxFlex="100" style="margin: 0 0.5% 0 0.5%;">
+                  <bpm-dynamic-item-form-horizontal [item]="item" [form]="form" [flexLabel]="item.colOfLabel"
+                        [flexInput]="(100-item.colOfLabel)">
+                  </bpm-dynamic-item-form-horizontal>
+            </div>
+      </div>
+</div>

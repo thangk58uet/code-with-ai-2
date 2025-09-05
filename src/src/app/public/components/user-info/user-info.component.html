@@ -1,0 +1,41 @@
+<div class="dashboard-user-info">
+    <div class="raised-section info-section w-45">
+        <div class="section-title">Thông tin người dùng</div>
+        <div class="section-content">
+            <div class="row mb-5px">
+                <label class="w-25 font-w-500">User ID</label>
+                <div class="w-75">{{ userInfo.user_id }}</div>
+            </div>
+            <div class="row mb-5px">
+                <label class="w-25 font-w-500">Username</label>
+                <div class="w-75">{{ userInfo.user_name }}</div>
+            </div>
+            <div class="row mb-5px">
+                <label class="w-25 font-w-500">Chi nhánh/PGD</label>
+                <div class="w-75">{{ userInfo.site_id }}</div>
+            </div>
+            <div class="row mb-5px">
+                <label class="w-25 font-w-500">Email</label>
+                <div class="w-75">{{ userInfo.email }}</div>
+            </div>
+            <div class="row mb-5px">
+                <label class="w-25 font-w-500">Role</label>
+                <div class="w-75">{{ userInfo.authorities }}</div>
+            </div>
+        </div>
+    </div>
+    <div class="raised-section info-section w-55">
+        <div class="section-title">Thông tin Task</div>
+        <div class="section-content">
+            <canvas
+                baseChart
+                [labels]="chartLabels"
+                [chartType]="chartType"
+                [options]="pieChartOptions"
+                [datasets]="chartDataSets"
+                [plugins]="pieChartPlugins"
+            >
+            </canvas>
+        </div>
+    </div>
+</div>

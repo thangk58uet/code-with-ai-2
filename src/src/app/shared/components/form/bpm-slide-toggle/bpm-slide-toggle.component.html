@@ -1,0 +1,27 @@
+<div fxLayoutAlign="center center" fxLayout="row wrap" fxFlex="100" class="ml-5px mr-5px" *ngIf="visible; else false">
+    <div *ngIf="label != '' && flexLabel !=0" class="form-group" [fxFlex.gt-xs]="flexLabel" [fxFlex.gt-sm]="flexLabel"
+        fxFlex="100">
+        <label for="{{label}}">{{label || id }}<span *ngIf="require" class="required">*</span>
+        </label>
+    </div>
+    <ng-container>
+        <div class="form-group" [fxFlex.gt-xs]="flexInput" [fxFlex.gt-sm]="flexInput" fxFlex="100" >
+            <div class="form-input-row">
+                <mat-slide-toggle 
+                    [color]="color"
+                    #name="ngModel"
+                    id="{{id}}"
+                    [(ngModel)]="model"
+                    [required]="require"
+                    [disabled]="(disabled===true || false)"
+                    (ngModelChange)="ngModelChange($event)"
+                    (change)="ngOnChange($event)"
+                    (blur)="ngOnBlur($event)"
+                >
+               <ng-content></ng-content>
+                </mat-slide-toggle>
+            </div>
+        </div>
+    </ng-container>
+   
+</div>

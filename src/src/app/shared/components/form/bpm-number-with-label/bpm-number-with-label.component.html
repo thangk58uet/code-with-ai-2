@@ -1,0 +1,47 @@
+<div fxLayout="row wrap" fxFlex="100" class="ml-5px mr-5px" *ngIf="visible; else false" >
+    <div  *ngIf="label != '' && flexLabel !=0" class="form-group" [fxFlex.gt-xs]="flexLabel" [fxFlex.gt-sm]="flexLabel" fxFlex="100">
+        <label for="{{label}}" class="word-break: break-word;">{{label || id }}<span *ngIf="required" class="required">*</span>
+        </label>
+      </div>
+      <div class="form-group" [fxFlex.gt-xs]="flexInput" [fxFlex.gt-sm]="flexInput" fxFlex="100">
+          <div class="form-input-row">
+              <input
+                matInput
+                #name="ngModel"
+                #numberElement
+                [options]="{ prefix: '', thousands: ',', decimal: '.', precision: (precision || 0) }"
+                currencyMask
+                id="{{id}}"
+                [ngModel]="model"
+                class="form-control"
+                [ngClass] = "{'form-error': name.errors && name.invalid && (name.dirty || name.touched),'end-adornment-custom': endAdornment}"
+                autocomplete="off"
+                [required]="required"
+                [placeholder]="placeholder || ''"
+                maxLength ="{{maxLength || 20}}"
+                min="{{min || -999999999999}}"
+                max="{{max || 999999999999999999}}"
+                [disabled]="(disabled===true || false)"
+                oninput="validity.valid||(value='');"
+                (ngModelChange)="ngModelChange($event)"
+                (blur)="ngOnBlur($event)"
+              />
+              <p class ="end-adornment-text" *ngIf="endAdornment">{{endAdornment}}</p>
+          </div>
+          <div class="inputNote" *ngIf="note">{{note}}</div>
+    </div>    
+    <div fxLayout="row wrap" fxFlex="100" *ngIf="name.invalid && (name.dirty || name.touched)">
+      <div [fxFlex.gt-xs]="flexLabel" [fxFlex.gt-sm]="flexLabel" fxFlex="100"></div>
+      <div [fxFlex.gt-xs]="flexInput" [fxFlex.gt-sm]="flexInput" fxFlex="100" fxFlexAlign="center">
+          <div *ngIf="name.errors?.required" class="form-error-message">
+              {{'Vui lòng nhập ' + (label || placeholder || '')}}
+          </div>
+          <div *ngIf="name.errors?.minlength">
+            {{'Minimum length of this field is' + min}}
+          </div>
+          <div *ngIf="name.errors?.maxLength">
+            {{'Maximum length of this field is' +max}} 
+          </div>
+      </div>
+    </div> 
+</div>

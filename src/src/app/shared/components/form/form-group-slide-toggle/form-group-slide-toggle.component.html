@@ -1,0 +1,6 @@
+<!-- CASE TEXTBOX -->
+<div [formGroup]="form">
+    <mat-slide-toggle color="primary" [id]="id || item.key" [formControlName]="item.key"
+        >{{ item.placeholder }} [class.form-error]="isValidControl(item.key)"
+    </mat-slide-toggle>
+</div>

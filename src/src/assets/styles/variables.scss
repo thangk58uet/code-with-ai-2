@@ -1,0 +1,126 @@
+@import '~@angular/material/theming';
+
+// COLOR
+$custom-collection: (
+    white: white,
+    black: #333333,
+    gray: #959595,
+    silver: #f7f7f7,
+    primary: #1565C0,
+    secondary: #f9690e,
+    error: #f9690e,
+    info: #a0d2ff,
+    success: #1565C0c9,
+    warning: #fdd131,
+    danger: #f0383e94,
+    contrast: (
+        white: #303030,
+        black: #FFFFFF,
+        gray:  #FFFFFF,
+        silver:  #FFFFFF,
+        primary:  #FFFFFF,
+        secondary:  #FFFFFF,
+        error:  #FFFFFF,
+        info:  #FFFFFF,
+        success:  #FFFFFF,
+        warning:  #FFFFFF,
+        danger:  #FFFFFF,
+    )
+);
+$primary: #1565C0;
+$secondary:#f9690e;
+$color-gray-200: #eeeeee;
+$color-gray-500: #BDBDBD;
+$color-light-error: #ffdce1;
+$color-light-success: #d7f2db;
+$color-sematic-success-100: #1565C0c9;
+$color-light-primary: #1565C0c9;
+$color-light-blue-100: #b3d3f5;
+$sematic-warning-100: #957a4c;
+
+
+$color-blue-primary: #1565C0;
+$color-tab: #0899cc;
+$color-blue-dark-blue: #24264e;
+$color-secondary-lotus-lavender: #b4a5fa;
+$color-secondary-mint-green: #9be6c8;
+$color-secondary-sky-blue: #a0d2ff;
+$color-neutral-black: #212121;
+$color-gray-900: #2e2e2e;
+$color-gray-800:#303030;
+$color-gray-700: #646464;
+$color-gray-600: #a1a1a1;
+$color-gray-400: #cccccc;
+$color-gray-300: #d8d8d8;
+$color-gray-100: #f7f7f7;
+$color-gray-50: #fcfcfc;
+$color-neutral-white: #ffffff;
+$color-sematic-success: #1565C0c9;
+$color-sematic-error: #eb2d4b;
+$color-sematic-disabled: #b2b8ed;
+$sematic-warning: #f1b627;
+$color-gray-custom: #9b9b9b;
+$color-light-blue: #ebf3ff;
+
+$colors:(
+    white: $color-neutral-white,
+    gray-50: $color-gray-50,
+    gray-100: $color-gray-100,
+    gray-200: $color-gray-200,
+    gray-300: $color-gray-300,
+    gray-400: $color-gray-400,
+    gray-500: $color-gray-500,
+    gray-600: $color-gray-600,
+    gray-700: $color-gray-700,
+    gray-900: $color-gray-900,
+    error: $color-sematic-error,
+    success: $color-sematic-success,
+    light-success: $color-light-success,
+    success-100: $color-sematic-success-100,
+    warning: $sematic-warning,
+    warning-100: $sematic-warning-100,
+    disabled: $color-sematic-disabled,
+    primary: $color-blue-primary,
+    dark-blue: $color-blue-dark-blue,
+    light-blue: $color-light-blue,
+    light-error: $color-light-error,
+    white-error: $color-neutral-white,
+);
+
+$colors-background:(
+    white: $color-blue-primary,
+    gray-50: $color-gray-900,
+    gray-100: $color-neutral-white,
+    gray-200: $color-neutral-white,
+    gray-300: $color-neutral-white,
+    gray-400: $color-neutral-white,
+    gray-500: $color-neutral-white,
+    gray-600: $color-neutral-white,
+    gray-700: $color-neutral-white,
+    gray-900: $color-neutral-white,
+    error: $color-neutral-white,
+    success: $color-neutral-white,
+    light-success: $color-blue-primary,
+    success-100: $color-neutral-white,
+    warning: $color-neutral-white,
+    warning-100: $color-neutral-white,
+    disabled: $color-neutral-white,
+    primary: $color-neutral-white,
+    dark-blue: $color-neutral-white,
+    light-blue: $color-blue-primary,
+    light-error: $color-sematic-error,
+    white-error: $color-sematic-error,
+);
+
+$colors-border:(
+    white:  $color-blue-primary,
+    light-blue: $color-blue-primary,
+    light-error: $color-sematic-error
+);
+
+
+$align-items: (c: center, fe: flex-end, fs: flex-start);
+$justify-content: (c: center, sb: space-between, fe: flex-end, fs: flex-start);
+$text-align: (l: left, r: right, c: center);
+$spacing: (p: padding, m: margin);
+$spacing-direction: (l: left, r: right, t: top, b: bottom);

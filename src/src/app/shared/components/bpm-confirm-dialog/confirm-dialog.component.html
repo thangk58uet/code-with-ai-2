@@ -1,0 +1,48 @@
+<div>
+    <div fxLayout="column" fxLayout.gt-xs="row wrap">
+        <div fxFlex="100" class="bpm-dialog-title">
+            <div fxFlex="75" fxLayoutAlign="start center">
+                <span class="dialog-title ml-10px mr-5px">{{ data?.title }}</span>
+            </div>
+            <div fxFlex="25" fxLayoutAlign="end" class="bpm-dialog-header-icon">
+                <bpm-button type="mat-icon" (click)="onCancelClick()" tooltip="Close" icon="close">
+                </bpm-button>
+            </div>
+        </div>
+    </div>
+    <div fxLayout="column" fxLayout.gt-xs="row wrap" class="bpm-dialog-content">
+        <div fxFlex="100" fxLayout="column" fxLayout.gt-xs="row wrap" fxLayoutAlign="start" *ngIf="data?.content"
+            class="dialog-confirm-content" [innerHTML]="data?.content">
+            <!-- {{data?.content}} -->
+        </div>
+        <div fxFlex="100" fxLayout="column" fxLayout.gt-xs="row wrap" fxLayoutAlign="end">
+
+            <ng-container *ngIf="data?.type === dialogType.CONFIRM">
+                <bpm-button text="OK" tooltip="Đồng ý" type="basic" color="primary" size="sm" (click)="onConfirmClick()">
+                   OK
+                </bpm-button>
+                <bpm-button text="Cancel" tooltip="Huỷ" type="basic" size="sm" (click)="onCancelClick()">
+                    Cancel
+                </bpm-button>
+            </ng-container>
+
+            <ng-container *ngIf="data?.type === dialogType.CUSTOMIZE">
+                <button mat-raised-button color="primary" size="sm" (click)="onConfirmClick()" style="margin-right: 20px;">{{ data?.titleConfirm }}</button>
+                <button mat-raised-button size="sm" (click)="onCancelClick()">{{ data?.titleCancel }}</button>
+            </ng-container>
+
+            <ng-container *ngIf="data?.type === dialogType.SUCCESS">
+                <bpm-button text="Ok" tooltip="Đồng ý" type="basic" color="primary" size="sm" (click)="onConfirmClick()">
+                    Ok
+                </bpm-button>
+            </ng-container>
+
+            <ng-container *ngIf="data?.type === dialogType.ERROR">
+                <bpm-button text="Close" tooltip="Đóng" type="basic" color="warn" size="sm" (click)="onCancelClick()">
+                    Close
+                </bpm-button>
+            </ng-container>
+
+        </div>
+    </div>
+</div>

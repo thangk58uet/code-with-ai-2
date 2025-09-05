@@ -1,0 +1,49 @@
+<div fxLayout="row wrap" fxFlex="100" class="" *ngIf="visible; else false" >
+    <div  *ngIf="label != '' && flexLabel !=0" class="form-group label" [fxFlex.gt-xs]="flexLabel" [fxFlex.gt-sm]="flexLabel" fxFlex="100">
+        <label for="{{label}}" [style.font-weight]="boldLabel" [style.color]="colorLabel" class="word-break: break-word;">{{label || id }}<span *ngIf="required" class="required">*</span>
+        </label>
+      </div>
+      <div class="form-group" [fxFlex.gt-xs]="flexInput" [fxFlex.gt-sm]="flexInput" fxFlex="100"  >
+          <div class="form-input-row" [style.width] = "widthInput">
+              <input
+                matInput
+                #name="ngModel"
+                #inputElement
+                id="{{id}}"
+                [type]="type || 'text'"
+                [ngModel]="model"
+                [bpmItem]="directives"
+                class="form-control"
+                [ngClass] = "{'form-error': name.errors && name.invalid && (name.dirty || name.touched),'end-adornment-custom': endAdornment}"
+                autocomplete="off"
+                [required]="required || false"
+                [placeholder]="placeholder || ''"
+                maxLength ="{{maxLength || 200}}"
+                min="{{min}}"
+                max="{{max}}"
+                
+                [disabled]="(disabled===true || false)"
+                oninput="validity.valid||(value='');"
+                (ngModelChange)="ngModelChange($event)"
+                (blur)="ngOnBlur($event)"
+                (keyup)="ngOnKeyup($event)"
+              />
+              <p class ="end-adornment-text" *ngIf="endAdornment">{{endAdornment}}</p>
+          </div>
+          <div class="inputNote" *ngIf="note">{{note}}</div>
+    </div>    
+    <div fxLayout="row wrap" fxFlex="100" *ngIf="name.invalid && (name.dirty || name.touched)">
+      <div [fxFlex.gt-xs]="flexLabel" [fxFlex.gt-sm]="flexLabel" fxFlex="100"></div>
+      <div [fxFlex.gt-xs]="flexInput" [fxFlex.gt-sm]="flexInput" fxFlex="100" fxFlexAlign="center">
+          <div *ngIf="name.errors?.required" class="form-error-message" style="width: 200%;">
+              {{'Vui lòng nhập ' + (requiredStr || label || placeholder || '')}}
+          </div>
+          <div *ngIf="name.errors?.minlength">
+            {{'Minimum length of this field is' + min}}
+          </div>
+          <div *ngIf="name.errors?.maxLength">
+            {{'Maximum length of this field is' +max}} 
+          </div>
+      </div>
+    </div> 
+</div>

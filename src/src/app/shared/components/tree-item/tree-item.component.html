@@ -1,0 +1,60 @@
+<div class="tree-item-container" *ngIf="treeItem">
+  <div class="tree-item-content ai-c">
+    <div class="tree-navigator">
+      <ng-container *ngIf="treeItem.child && treeItem.child.length > 0">
+        <mat-icon
+          matRipple
+          matRippleUnbounded="true"
+          matRippleCentered="true"
+          mat-icon-button
+          class="c-pointer"
+          (click)="treeItem.open = !treeItem.open"
+          >{{ treeItem.open ? 'expand_more' : 'chevron_right' }}</mat-icon
+        >
+      </ng-container>
+    </div>
+    <div class="tree-item-title ai-c">
+      <mat-checkbox *ngIf="selectable"
+        class="tree-item-checkbox"
+        (change)="masterToggle($event)"
+        [checked]="treeItem.checked && allChildSelected()"
+        [indeterminate]="treeItem.checked && !allChildSelected()"
+      >
+      </mat-checkbox>
+      <mat-icon class="mr-10px" *ngIf="treeItem.icon">{{treeItem.icon}}</mat-icon>
+      <div *ngIf="!treeItem.icon" class="mr-10px box-empty"></div>
+      {{ treeDisplayValue }}
+    </div>
+    <div *ngIf="optionList">
+      <button class="btn tree-btn" [matMenuTriggerFor]="menu">
+        <mat-icon>add</mat-icon>
+      </button>
+      <mat-menu #menu>
+        <button
+          *ngFor="let option of optionList"
+          mat-menu-item
+          (click)="treeOptionclicked(option)"
+        >
+          <mat-icon *ngIf="option.icon">{{ option.icon }}</mat-icon>
+          {{ option.name }}
+        </button>
+      </mat-menu>
+    </div>
+  </div>
+  <ng-container *ngIf="treeItem.open">
+    <div
+      *ngFor="let childSub of treeItem?.child; let i = index"
+      class="tree-item-child"
+    >
+      <bpm-tree-item
+        [selectable]="selectable"
+        [treeItem]="childSub"
+        [index]="i"
+        [level]="level"
+        [optionList]="optionList"
+        (treeItemChecked)="childEventChange($event)"
+        (treeItemEvent)="optionEventChange($event)"
+      ></bpm-tree-item>
+    </div>
+  </ng-container>
+</div>

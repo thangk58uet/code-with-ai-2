@@ -1,0 +1,100 @@
+<div class="form-group" fxLayout="row wrap" [formGroup]="form" [ngSwitch]="item.controlType">
+    <!-- LABLE -->
+    <div *ngIf="item.label != '' && flexLabel !=0" [ngClass]="{'pdt-2 ': isLable(item.controlType)}" class="pdl-4 mrt-4"
+        [fxFlex.gt-sm]="flexLabel" [fxFlex.gt-xs]="flexLabel" fxFlex="100">
+        <label>{{item.label}}
+            <span *ngIf="item.required" class="required">*</span>
+        </label>
+    </div>
+    <!-- CÁC TRƯỜNG HỢP ITEM FORM -->
+    <div [fxFlex.gt-sm]="flexInput" [fxFlex.gt-xs]="flexInput" fxFlex="100">
+        <!-- CASE TEXTBOX -->
+        <!-- CASE TEXTBOX -->
+        <ng-container *ngSwitchCase="controlType.TEXTBOX">
+            <form-group-input [item]="item" [form]="form" [id]="id"></form-group-input>
+        </ng-container>
+
+        <!-- CASE NUMBER -->
+        <ng-container *ngSwitchCase="controlType.NUMBER">
+            <form-group-input [item]="item" [form]="form" [id]="id"></form-group-input>
+        </ng-container>
+
+        <!-- CASE DROPDOWN -->
+        <ng-container *ngSwitchCase="controlType.DROPDOWN">
+            <form-group-select [item]="item" [form]="form" [id]="id"></form-group-select>
+        </ng-container>
+
+        <!-- CASE DATE -->
+        <ng-container *ngSwitchCase="controlType.DATE">
+            <form-group-date [item]="item" [form]="form" [id]="id"></form-group-date>
+        </ng-container>
+
+        <!-- CASE DATETIME -->
+        <ng-container *ngSwitchCase="controlType.DATETIME">
+            <form-group-datetime [item]="item" [form]="form" [id]="id"></form-group-datetime>
+        </ng-container>
+
+        <!-- CASE CHECKBOX -->
+        <ng-container *ngSwitchCase="controlType.CHECKBOX">
+            <form-group-checkbox [item]="item" [form]="form" [id]="id"></form-group-checkbox>
+        </ng-container>
+
+        <!-- CASE RADIO -->
+        <ng-container *ngSwitchCase="controlType.RADIO">
+            <form-group-radio [item]="item" [form]="form" [id]="id"></form-group-radio>
+        </ng-container>
+
+        <!-- CASE TEXTAREA -->
+        <ng-container *ngSwitchCase="controlType.TEXTAREA">
+            <form-group-textarea [item]="item" [form]="form" [id]="id"></form-group-textarea>
+        </ng-container>
+
+        <!-- CASE NGSELECT -->
+        <ng-container *ngSwitchCase="controlType.NGSELECT">
+            <form-ng-select [item]="item" [form]="form" [id]="id"></form-ng-select>
+        </ng-container>
+
+        <!-- CASE UPLOAD -->
+        <ng-container *ngSwitchCase="controlType.UPLOAD">
+            <form-group-upload [item]="item" [form]="form" [id]="id"></form-group-upload>
+        </ng-container>
+
+    </div>
+
+    <div fxLayout="row wrap" fxFlex="100">
+        <div [fxFlex.gt-sm]="flexLabel" [fxFlex.gt-xs]="flexLabel" fxFlex="100"></div>
+        <div [fxFlex.gt-sm]="flexInput" [fxFlex.gt-xs]="flexInput" fxFlex="100" fxFlexAlign="center">
+            <div *ngIf="isValidControl(item.key, 'required')" class="form-error-message">
+                {{item.requiredErrorMessage}}
+            </div>
+            <div *ngIf="isValidControl(item.key, 'maxlength')" class="form-error-message">
+                {{ item.maxLengthErrorMessage }}
+            </div>
+            <div *ngIf="isValidControl(item.key, 'minlength')" class="form-error-message">
+                {{ item.minLengthErrorMessage }}
+            </div>
+
+            <div *ngIf="isValidControl(item.key, 'max')" class="form-error-message">
+                {{ item.maxErrorMessage }}
+            </div>
+            <div *ngIf="isValidControl(item.key, 'min')" class="form-error-message">
+                {{ item.minErrorMessage }}
+            </div>
+            <div *ngIf="isValidControl(item.key, 'pattern')" class="form-error-message">
+                {{ item.patternErrorMessage }}
+            </div>
+            <div *ngIf="isValidControl(item.key, 'invalidMimeType')" class="form-error-message">
+                {{ item.invalidMimeTypeMessage }}
+            </div>
+        </div>
+    </div>
+
+    <ng-container *ngFor="let validate of item.customValidates">
+        <div class="form-group" fxLayout="row wrap">
+            <div [fxFlex.gt-sm]="flexLabel" [fxFlex.gt-xs]="flexLabel" fxFlex="100"></div>
+            <div *ngIf="isValidControl(item.key, validate.errorName)" [fxFlex.gt-sm]="flexInput"
+                [fxFlex.gt-xs]="flexInput" fxFlex="100" fxFlexAlign="center" class="form-error-message">
+                {{ validate.errorMessage }}
+            </div>
+        </div>
+    </ng-container>

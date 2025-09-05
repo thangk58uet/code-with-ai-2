@@ -1,0 +1,20 @@
+<mat-expansion-panel
+    [disabled]="disabled === true || false"
+    [expanded]="panelOpen"
+    (opened)="onOpen()"
+    (closed)="onClose()"
+    [hideToggle]="hideToggle"
+    [@.disabled]="true"
+>
+    <mat-expansion-panel-header [expandedHeight]="'48px'" [collapsedHeight]="'48px'">
+        <mat-panel-title>
+            {{ panelTitle }}
+        </mat-panel-title>
+        <mat-panel-description *ngIf="description">
+            {{ description }}
+        </mat-panel-description>
+    </mat-expansion-panel-header>
+    <ng-content></ng-content>
+</mat-expansion-panel>
+
+<bpm-expansion> </bpm-expansion>

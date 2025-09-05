@@ -1,0 +1,31 @@
+
+.sub-menu {
+    padding: 2px 0;
+    .sub-menu-content {
+        border-radius: 5px;
+        font-size: 14px;
+        font-weight: 600;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        padding: 0 0.5rem;
+        min-height: 2.5rem;
+        &.sub-menu-focused, &:hover  {
+            background-color: rgb(196, 196, 196);
+        }
+        .sub-menu-icon {
+            width: 30px;
+            height: 24px;
+            img {
+                height: 100%;
+            }
+        }
+    }
+    .sub-menu-child {
+        padding-left: 20px;
+    }
+}
+
+a {
+    text-decoration: none;
+}

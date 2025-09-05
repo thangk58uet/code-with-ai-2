@@ -1,0 +1,29 @@
+// .drop-down {
+//     mat-select {
+//         border: solid 1px #eeeeee;
+//     }
+// }
+
+.options-container {
+  max-height: 250px;
+}
+.selected-options {
+  display: none;
+}
+
+.close-btn {
+    position: absolute;
+    top: 30%;
+    right: 1.25rem;
+    font-size: 12px;
+    font-weight: 600;
+    color: #999;
+    cursor: pointer;
+    &:hover {
+        color: red;
+    }
+}
+
+.drop-down {
+    position: relative;
+}

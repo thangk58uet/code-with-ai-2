@@ -1,0 +1,43 @@
+<div class="" fxLayout="row wrap" fxFlex="100" class="ml-5px mr-5px" *ngIf="visible; else false">
+  <div *ngIf="label != '' && flexLabel !=0" class="form-group" [fxFlex.gt-xs]="flexLabel" [fxFlex.gt-sm]="flexLabel" fxFlex="100">
+      <label for="{{label}}" class="">{{label}}<span *ngIf="required" class="required">*</span>
+      </label>
+    </div>
+    <div class="form-group" [fxFlex.gt-xs]="flexInput" [fxFlex.gt-sm]="flexInput" fxFlex="100">
+      <ng-select
+          #name="ngModel"
+          #autoElement
+          [items]="options"
+          [bindLabel]="bindLabel || 'text'"
+          [bindValue]="bindValue || 'value'"
+          [groupBy]="groupBy"
+          [id]="id"
+          [ngModel]="model"
+          [searchable]="true"
+          [virtualScroll]="true"
+          [closeOnSelect]="multiple!== true"
+          [multiple]="multiple || false"
+          [ngClass] = "{'form-error': name.errors && name.invalid && (name.dirty || name.touched)}"
+          [required]="required || false"
+          [placeholder]="placeholder || '---Chọn---'"
+          [disabled]="(disabled===true || false)"
+          (ngModelChange)="ngModelChange($event)"
+      >
+      <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+          <input *ngIf="multiple" id="item-{{index}}" type="checkbox" [ngModel]="item$.selected"/> {{item.text}}
+      </ng-template>
+      <!-- <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+        <mat-checkbox (click)="$event.stopPropagation()" (change)="ngOnChangeCheckBox(item)" [checked]="item$.selected" > {{item.text}}
+        </mat-checkbox>
+      </ng-template> -->
+      </ng-select>
+  </div>    
+  <div fxLayout="row wrap" fxFlex="100" *ngIf="name.invalid && (name.dirty || name.touched)">
+    <div [fxFlex.gt-xs]="flexLabel" [fxFlex.gt-sm]="flexLabel" fxFlex="100"></div>
+    <div [fxFlex.gt-xs]="flexInput" [fxFlex.gt-sm]="flexInput" fxFlex="100" fxFlexAlign="center">
+        <div *ngIf="name.errors?.required" class="form-error-message">
+            {{'Vui lòng chọn ' + (label || placeholder || '')}}
+        </div>
+    </div>
+  </div> 
+</div>

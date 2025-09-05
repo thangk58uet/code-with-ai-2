@@ -1,0 +1,25 @@
+table {
+    width: 100%;
+  }
+
+.mat-badge-small.mat-badge-after .mat-badge-content {
+  right: 36% !important;
+}
+
+.mat-badge-small.mat-badge-above .mat-badge-content {
+  top: 15% !important;
+}
+
+.checkbox-col {
+  text-align: center;
+  width: 50px;
+  min-width: 50px;
+  padding: 0 !important;
+}
+
+// .mat-row {
+//   cursor: pointer;
+//   &:hover {
+//     background-color: rgba(0, 0, 0, 0.04)
+//   }
+// } 

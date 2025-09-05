@@ -1,0 +1,53 @@
+.custom-date {
+    .input-custom-date {
+        display: flex; 
+        border: 1px solid #ced4da; 
+        height: 30px;
+        align-items: center; 
+        border-radius: 0.25rem; 
+        padding-left: 5px; 
+        width: 160px;
+        position: relative;
+    }
+    ::ng-deep mat-form-field {
+        margin-right: 12px;
+        position: unset;
+    }
+    
+    input {
+        border: none;
+        text-align: center;
+        margin-top: 2px;
+        font-size: 12px;
+    }
+    
+    input:focus{
+        outline: none;
+        border: none;
+        border-color: inherit;
+        -webkit-box-shadow: none;
+        box-shadow: none;
+    }
+    ::ng-deep .mat-form-field-infix {
+        display: none;
+    }
+    ::ng-deep .mat-datepicker-toggle {
+        position: absolute;
+        top: -6px;
+        right: -48px;
+    }
+    ::ng-deep .mat-form-field-underline {
+        display: none;
+    }
+    ::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
+        background: unset;
+    }
+    ::ng-deep .mat-form-field-suffix {
+        position: unset;
+    }
+    .close-btn {
+        right: 19px;
+        top: 9px;
+    }
+    
+}

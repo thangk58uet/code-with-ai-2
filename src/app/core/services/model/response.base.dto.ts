@@ -9,6 +9,7 @@ export interface HttpInterface<T> {
     clientMessageId: string;
     soaErrorDesc: string;
     status: number;
+    code: string;
 }
 
 export interface HttpErrorInterface {

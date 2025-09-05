@@ -164,15 +164,15 @@ export class AuthenticationService {
    * @param isRefresh
    */
   public storeSession(data: Login, isRefresh = true) {
-    const decodedAccessToken = this.jwtHelper.decodeToken(data.accessToken);
-    this.setToken(data.accessToken);
-    this.setRefreshToken(data.refreshToken);
-    this.setTimeExpiration(data.timeExpiration);
+    const decodedAccessToken = this.jwtHelper.decodeToken(data.token);
+    this.setToken(data.token);
+    this.setRefreshToken(data.token);
+    this.setTimeExpiration(data.expires_in);
     if (isRefresh) {
       this.setUserToLocalStorage(decodedAccessToken);
       // sort left menu by sortOrder
-      data.menus.sort(function(a,b) {return (a.sortOrder > b.sortOrder) ? 1 : ((b.sortOrder > a.sortOrder) ? -1 : 0);} );
-      this.setMenuListToLocalStorage(data.menus, LocalStorageEnum.Menu_List);
+      //data.menus.sort(function(a,b) {return (a.sortOrder > b.sortOrder) ? 1 : ((b.sortOrder > a.sortOrder) ? -1 : 0);} );
+      //this.setMenuListToLocalStorage(data.menus, LocalStorageEnum.Menu_List);
     }
   }
 

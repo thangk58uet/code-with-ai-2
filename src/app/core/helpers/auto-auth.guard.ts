@@ -45,7 +45,7 @@ export class AutoAuthGuard implements CanActivate {
         }),
         map((response: HttpInterface<Login>) => {
           this.auth.startRefreshTokenTimer();
-          if (response.status === 200 && response.data.accessToken)
+          if (response.code === '00' && response.data.token)
             return true;
           else {
             this.redirect403(state);

@@ -23,9 +23,6 @@ interface InfoUser {
 }
 
 export interface Login {
-  accessToken: string;
-  menus: Menus[];
-  scope: Right[];
-  refreshToken: any;
-  timeExpiration: number;
+  token: string;
+  expires_in: number;
 }

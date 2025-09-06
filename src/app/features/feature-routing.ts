@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from '@features/home/home.component';
+import { DochubHomepageComponent } from '@shared/components/dochub-homepage/dochub-homepage.component';
 
 const routes: Routes = [
     {
@@ -8,17 +9,9 @@ const routes: Routes = [
         component: HomeComponent,
         children: [
             {
-                path: 'feature-1',
-                // loadChildren: () => import('./system-settings/system-settings.module').then(m => m.SystemSettingsModule)
-            },
-            {
-                path: 'feature-2',
-                // loadChildren: () => import('./system-settings/system-settings.module').then(m => m.SystemSettingsModule)
-            },
-            {
-                path: 'feature-3',
-                // loadChildren: () => import('./system-settings/system-settings.module').then(m => m.SystemSettingsModule)
-            },
+                path: '',
+                component: DochubHomepageComponent
+            }
         ]
     }
 ];

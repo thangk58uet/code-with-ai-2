@@ -1,0 +1,44 @@
+.welcome-section {
+  background-color: #ffffff;
+  padding: 40px 0;
+  border-bottom: 1px solid #f0f0f0;
+
+  .welcome-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+
+    .welcome-title {
+      font-size: 32px;
+      font-weight: 700;
+      color: #333;
+      margin: 0 0 8px 0;
+      line-height: 1.2;
+    }
+
+    .welcome-subtitle {
+      font-size: 16px;
+      color: #666;
+      margin: 0;
+      line-height: 1.5;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .welcome-section {
+    padding: 30px 0;
+
+    .welcome-container {
+      padding: 0 15px;
+
+      .welcome-title {
+        font-size: 28px;
+      }
+
+      .welcome-subtitle {
+        font-size: 14px;
+      }
+    }
+  }
+}

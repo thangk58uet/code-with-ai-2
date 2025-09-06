@@ -2,7 +2,6 @@
 .dashboard-container {
   position: relative;
   .main-content {
-    padding-top: 45px;
     .home-container {
       .side-nav {
         border-right: 1px solid rgb(180, 180, 180);
@@ -13,9 +12,7 @@
       .dashboard-col {
         background-color: whitesmoke;
         .dashboard-content {
-          margin: 2rem auto 2rem auto;
-          max-width: 1560px;
-          width: 95%;
+          width: 100%;
         }
       }
     }

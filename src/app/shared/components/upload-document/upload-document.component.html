@@ -1,0 +1,67 @@
+<div class="upload-doc-wrapper">
+  <h2 class="main-title">Upload &amp; Manage Documents</h2>
+  <div class="subtitle">Share your expertise and contribute to the company's knowledge base</div>
+  <mat-card class="upload-card">
+    <h3 class="card-title">Upload New Document</h3>
+    <form [formGroup]="uploadForm" (ngSubmit)="onSubmit()">
+      <!-- File Upload -->
+      <div class="file-upload-section"
+           (drop)="onDrop($event)"
+           (dragover)="onDragOver($event)">
+        <mat-icon class="upload-icon">{{fileIcon}}</mat-icon>
+        <input type="file" #fileInput id="fileInput" hidden (change)="onFileChange($event)" accept=".pdf,.doc,.docx,.jpg,.jpeg,.png" />
+        <!-- <button mat-stroked-button type="button" (click)="fileInput.click()">
+          Select File
+        </button> -->
+        <span class="file-name" *ngIf="fileName">{{fileName}}</span>
+        <div class="file-hint">Kéo thả hoặc chọn file DOC, PDF, JPG, PNG. Tối đa 10MB.</div>
+        <div class="file-error" *ngIf="fileError">{{fileError}}</div>
+      </div>
+      <!-- Title -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Document Title</mat-label>
+        <input matInput formControlName="title" required />
+        <mat-error *ngIf="uploadForm.get('title')?.hasError('required')">Title is required</mat-error>
+      </mat-form-field>
+      <!-- Description -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Document Description</mat-label>
+        <textarea matInput formControlName="description" required></textarea>
+        <mat-error *ngIf="uploadForm.get('description')?.hasError('required')">Description is required</mat-error>
+      </mat-form-field>
+      <!-- Summary -->
+      <mat-form-field appearance="outline" class="full-width summary-field">
+        <mat-label>Document Summary</mat-label>
+        <textarea matInput formControlName="summary" maxlength="500" placeholder="Enter a summary or generate one with AI (max 500 words)"></textarea>
+        <button mat-mini-button matSuffix type="button" (click)="generateSummaryAI()">Generate with AI</button>
+        <div class="summary-count">{{uploadForm.get('summary')?.value?.length || 0}}/500</div>
+      </mat-form-field>
+      <!-- Tags -->
+      <mat-form-field appearance="outline" class="full-width">
+        <mat-label>Tags/Labels</mat-label>
+        <mat-chip-list #chipList aria-label="Tag selection">
+          <mat-chip *ngFor="let tag of tags" [selectable]="true" [removable]="true" (removed)="removeTag(tag)">
+            {{tag}}
+            <mat-icon matChipRemove>cancel</mat-icon>
+          </mat-chip>
+          <input
+            placeholder="Add a tag"
+            [matChipInputFor]="chipList"
+            [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+            [matChipInputAddOnBlur]="true"
+            (matChipInputTokenEnd)="addTag($event)"
+          />
+        </mat-chip-list>
+        <button mat-mini-button matSuffix type="button" (click)="generateTagsAI()">Auto-generate with AI</button>
+      </mat-form-field>
+      <!-- Sharing Settings -->
+      <mat-radio-group formControlName="sharing" class="sharing-group">
+        <mat-radio-button value="private">Private</mat-radio-button>
+        <mat-radio-button value="group">Group</mat-radio-button>
+        <mat-radio-button value="public">Public</mat-radio-button>
+      </mat-radio-group>
+      <!-- Upload Button -->
+      <button mat-raised-button color="primary" class="upload-btn" type="submit" [disabled]="uploadForm.invalid">Upload Document</button>
+    </form>
+  </mat-card>
+</div>

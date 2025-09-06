@@ -56,6 +56,13 @@ import { CurrencyMaskModule } from "ng2-currency-mask";
 import { BpmNumberWithLabelComponent } from './components/form/bpm-number-with-label/bpm-number-with-label.component';
 import { IconValuePipe } from './pipe/icon-value.pipe';
 import { DatePickerCustomWithLabelComponent } from './components/form/bpm-date-picker-custom-with-label/bpm-date-picker-custom-with-label.component';
+import { DochubHeaderComponent } from './components/dochub-header/dochub-header.component';
+import { WelcomeSectionComponent } from './components/welcome-section/welcome-section.component';
+import { DocumentCardComponent } from './components/document-card/document-card.component';
+import { DochubHomepageComponent } from './components/dochub-homepage/dochub-homepage.component';
+import { A11yModule } from "@angular/cdk/a11y";
+import { DocumentsComponent } from './components/documents/documents.component';
+import { UploadDocumentComponent } from './components/upload-document/upload-document.component';
 
 
 const THIRD_MODULES = [
@@ -112,7 +119,13 @@ const COMPONENTS = [
   ConfirmDialogComponent,
   ModalDialogComponent,
   BpmLoadingComponent,
-  BpmNumberWithLabelComponent
+  BpmNumberWithLabelComponent,
+  DochubHeaderComponent,
+  WelcomeSectionComponent,
+  DocumentCardComponent,  
+  DocumentsComponent,
+  DochubHomepageComponent,
+  UploadDocumentComponent
 ];
 
 const PIPE =[
@@ -128,7 +141,7 @@ const DIRECTIVES = [
 ];
 @NgModule({
   declarations: [...COMPONENTS, ...DIRECTIVES,...PIPE, IconValuePipe],
-  imports: [CommonModule, ...THIRD_MODULES],
+  imports: [CommonModule, ...THIRD_MODULES, A11yModule],
   exports: [CommonModule, ...THIRD_MODULES, ...COMPONENTS, ...DIRECTIVES],
   entryComponents: [DialogCommonComponent],
   schemas: [NO_ERRORS_SCHEMA]

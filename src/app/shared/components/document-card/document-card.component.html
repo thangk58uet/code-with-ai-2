@@ -1,0 +1,36 @@
+<div class="document-card">
+  <div class="card-content">
+    <div class="document-header">
+      <h3 class="document-title">{{ document.title }}</h3>
+      <button class="view-all-btn" *ngIf="showMoreButton" (click)="onViewAll()">
+        Xem tất cả
+      </button>
+    </div>
+    <div class="category-tag">
+      {{ document.category }}
+    </div>
+    
+    <p class="document-description">{{ document.description }}</p>
+    
+    <div class="document-meta">
+      <div class="author-info">
+        <mat-icon class="author-icon">person</mat-icon>
+        <span class="author-name">{{ document.author }}</span>
+      </div>
+      
+      <div class="date-info">
+        <mat-icon class="date-icon">calendar_today</mat-icon>
+        <span class="date-text">{{ document.date }}</span>
+      </div>
+    </div>
+    
+    <div class="rating-section" *ngIf="showRating && document.rating">
+      <mat-icon class="star-icon">star</mat-icon>
+      <span class="rating-text">{{ document.rating }}</span>
+    </div>
+    
+    <button class="view-details-btn" (click)="onViewDetails()">
+      Xem chi tiết
+    </button>
+  </div>
+</div>

@@ -20,11 +20,6 @@ export class HomeComponent implements AfterContentInit, OnDestroy {
     private menuCoreService: MenuCoreService,
     private idleTimerService: IdleTimerService
   ) {
-    this.titleSubsciption.add(
-      this.router.events.subscribe((data) => {
-        this.routeTitle = this.menuCoreService.getMenuTitleByRoute(data);
-      })
-    );
 
     const expiredTime = parseInt(localStorage.getItem("TIMEUIA"), 10);
     if (expiredTime > 0 && expiredTime < Date.now()) {

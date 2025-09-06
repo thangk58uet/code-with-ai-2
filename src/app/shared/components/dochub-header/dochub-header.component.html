@@ -1,0 +1,31 @@
+<header class="dochub-header">
+
+  <div class="header-container">
+    <!-- Logo -->
+    <div class="logo">
+      <h1>Dochub</h1>
+    </div>
+
+    <!-- Search Bar -->
+    <div class="search-container">
+      <div class="search-input-wrapper">
+        <mat-icon class="search-icon">search</mat-icon>
+        <input 
+          type="text" 
+          class="search-input" 
+          placeholder="Tìm kiếm tài liệu..."
+          [(ngModel)]="searchQuery"
+          (keyup.enter)="onSearch()"
+        >
+      </div>
+    </div>
+
+    <!-- Profile -->
+    <div class="profile-section">
+      <button class="button-group create-document-button" mat-button (click)="navigateToCreateDocument()">
+        <mat-icon>add</mat-icon>
+        Tạo tài liệu</button>
+      <button class="button-group" mat-button (click)="onProfileClick()">Thông tin tài khoản</button>
+    </div>
+  </div>
+</header>

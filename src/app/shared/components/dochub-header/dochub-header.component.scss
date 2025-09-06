@@ -1,0 +1,115 @@
+.dochub-header {
+  background-color: #ffffff;
+  border-bottom: 1px solid #e0e0e0;
+  padding: 0;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+
+  .header-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 60px;
+
+    .logo {
+      h1 {
+        margin: 0;
+        font-size: 24px;
+        font-weight: 600;
+        color: #333;
+        cursor: pointer;
+      }
+    }
+
+    .search-container {
+      flex: 1;
+      max-width: 500px;
+      margin: 0 40px;
+
+      .search-input-wrapper {
+        position: relative;
+        display: flex;
+        align-items: center;
+
+        .search-icon {
+          position: absolute;
+          left: 12px;
+          color: #666;
+          font-size: 20px;
+          z-index: 1;
+        }
+
+        .search-input {
+          width: 100%;
+          padding: 10px 12px 10px 40px;
+          border: 1px solid #ddd;
+          border-radius: 8px;
+          font-size: 14px;
+          background-color: #f8f9fa;
+          transition: all 0.3s ease;
+
+          &:focus {
+            outline: none;
+            border-color: #007bff;
+            background-color: #ffffff;
+            box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.1);
+          }
+
+          &::placeholder {
+            color: #999;
+          }
+        }
+      }
+    }
+
+    .profile-section {
+      .button-group {
+        font-size: 14px;
+        font-weight: 500;
+        color: #333;
+        background-color: #f8f9fa;
+        border-radius: 6px;
+        padding: 8px 16px;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+        &:hover {
+          background-color: #e9ecef;
+        }
+      }
+      .create-document-button {
+        margin-right: 10px;
+        background-color: #007bff !important;
+        color: #fff !important;
+        box-shadow: 0 2px 8px rgba(0,123,255,0.15);
+        border-radius: 6px;
+        font-weight: 600;
+        transition: background 0.3s, box-shadow 0.3s;
+        border: none;
+        text-transform: none;
+        &:hover, &:focus {
+          background-color: #0056b3 !important;
+          box-shadow: 0 4px 12px rgba(0,123,255,0.22);
+          color: #fff !important;
+        }
+      }
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .dochub-header {
+    .header-container {
+      padding: 0 15px;
+      
+      .search-container {
+        margin: 0 20px;
+      }
+    }
+  }
+}

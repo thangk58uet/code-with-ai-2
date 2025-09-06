@@ -1,0 +1,23 @@
+<section class="documents-section">
+  <div class="section-container">
+    <div class="section-title">
+      <h2 class="title">{{ title }}</h2>
+      <button 
+        *ngIf="showMoreButton" 
+        class="view-more-btn" 
+        (click)="onViewMore()"
+      >
+        Xem thêm
+      </button>
+    </div>
+    
+    <div class="documents-grid">
+      <app-document-card 
+        *ngFor="let document of documents" 
+        [document]="document"
+        [showRating]="showRating"
+        (viewDetails)="onDocumentSelected($event)"
+      ></app-document-card>
+    </div>
+  </div>
+</section>

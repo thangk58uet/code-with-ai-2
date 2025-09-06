@@ -1,33 +1,16 @@
 <div class="h-100 dashboard-container">
-  <app-header></app-header>
+  <app-dochub-header></app-dochub-header>
   <div class="main-content h-100">
     <mat-sidenav-container class="home-container h-100">
-      <mat-sidenav
-        class="side-nav"
-        [class.side-nav-closed]="!opened"
-        #sidenav
-        mode="side"
-        [(opened)]="opened"
-        appResizable
-        [resizableMinWidth]="200"
-      >
-        <app-sidebar-left (menuEventEmitter)="openMenu()"></app-sidebar-left>
-      </mat-sidenav>
-
       <mat-sidenav-content
         class="dashboard-col"
-        [ngStyle]="marginLeftSideNav(sidenav._width)"
       >
-        <div class="dashboard-content raised-section" *ngIf='routeTitle && routeTitle !== "BPM"'>
-          <div class="section-title">{{ routeTitle == undefined ? 'Welcome' :  routeTitle}}</div>
+        <div class="dashboard-content raised-section">
+          
           <div class="section-content">
             <router-outlet></router-outlet>
           </div>
         </div>
-
-        <ng-container *ngIf='routeTitle && routeTitle === "BPM"'>
-          <bpm-user-info></bpm-user-info>
-        </ng-container>
       </mat-sidenav-content>
     </mat-sidenav-container>
     <div *ngIf="!opened" class="menu-cloud"><mat-icon (click)="openMenu()">list</mat-icon></div>

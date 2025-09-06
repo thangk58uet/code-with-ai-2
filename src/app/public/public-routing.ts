@@ -5,16 +5,20 @@ import { AccessDeniedComponent } from './components/access-denied/access-denied.
 import { ErrorComponent } from './components/error/error.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
+import { UploadDocumentComponent } from '@shared/components/upload-document/upload-document.component';
 
 const routes: Routes = [
   {
-    path: '', component: HomeComponent, canActivate: [AuthGuard], children:
+    path: '', component: HomeComponent, children:
     [
       {
         path: '', loadChildren: () => import('../features/feature.module').then(m => m.FeatureModule)
+      },
+      {
+        path: 'create-document', component: UploadDocumentComponent
       }
-    ]
-  }, 
+    ],
+  },
   { path: 'login', component: LoginComponent },
   { path: '404', component: ErrorComponent },
   { path: 'accessDenied', component: AccessDeniedComponent },

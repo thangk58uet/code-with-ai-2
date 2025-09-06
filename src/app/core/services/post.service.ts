@@ -46,7 +46,6 @@ export class PostService {
 
         return this.http.get(options);
     }
-<<<<<<< Updated upstream
     search(key: string, tag: string, date: string, pageNumber: number, pageSize: number): Observable<any> {
         let params = {}
         if (key) params = {...params, key}
@@ -64,7 +63,6 @@ export class PostService {
 
         return this.http.get(options);
     }
-=======
 
     editDocument(
         file: File,
@@ -93,5 +91,4 @@ export class PostService {
         return this.http.post(options);
     }
     
->>>>>>> Stashed changes
 }

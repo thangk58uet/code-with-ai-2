@@ -36,13 +36,12 @@ export class UploadDocumentService {
         return this.postService.postDocument(file, title, description, sharing, tags);
     }
 
-<<<<<<< Updated upstream
     search(key: string, tag: string, date: string, page: number, pageSize: number): Observable<any> {
         console.log(key, tag, date, page, pageSize)
         return this.postService.search(key, tag, date, page, pageSize);
-=======
+    }
+    
     editDocument(file: File, title: string, description: string, sharing: 1 | 2 | 3, tags: string[], postId: string): Observable<any> {
         return this.postService.editDocument(file, title, description, sharing, tags, postId);
->>>>>>> Stashed changes
     }
 }

@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
     });
     this.registerForm = this.formBuilder.group({
       usernameRegister: ["", Validators.required, Validators.maxLength(25)],
-      password: ["", Validators.required, Validators.maxLength(40), Validators.minLength(6)],
+      passwordRegister: ["", Validators.required, Validators.maxLength(40), Validators.minLength(6)],
       groupId: [1, Validators.required],
     });
   }
@@ -111,10 +111,8 @@ export class LoginComponent implements OnInit {
     //   );
     //   return;
     // }
-    let { username, password, groupId } = this.registerForm.value;
-    username = 'user23';
-    password = '123456'
-    this.authenticationService.register(username, password, groupId).subscribe(res => {
+    let { usernameRegister, passwordRegister, groupId } = this.registerForm.getRawValue();
+    this.authenticationService.register(usernameRegister, passwordRegister, groupId).subscribe(res => {
       if (res.code == '00') {
         this.toastService.showToastr(
           'Đăng ký thành công',

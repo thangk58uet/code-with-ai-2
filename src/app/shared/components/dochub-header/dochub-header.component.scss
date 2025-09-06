@@ -67,34 +67,71 @@
     }
 
     .profile-section {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      
       .button-group {
+        display: flex;
+        align-items: center;
+        gap: 6px;
         font-size: 14px;
         font-weight: 500;
-        color: #333;
-        background-color: #f8f9fa;
-        border-radius: 6px;
-        padding: 8px 16px;
+        border-radius: 8px;
+        padding: 10px 16px;
         border: none;
         cursor: pointer;
-        transition: background-color 0.3s ease;
-        &:hover {
-          background-color: #e9ecef;
+        transition: all 0.3s ease;
+        text-transform: none;
+        
+        .button-text {
+          font-size: 14px;
+        }
+        
+        mat-icon {
+          font-size: 18px;
+          width: 18px;
+          height: 18px;
         }
       }
+      
+      .search-button {
+        color: #666;
+        background-color: #f8f9fa;
+        border: 1px solid #e9ecef;
+        
+        &:hover {
+          background-color: #e9ecef;
+          color: #495057;
+          transform: translateY(-1px);
+          box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+      }
+      
       .create-document-button {
-        margin-right: 10px;
         background-color: #007bff !important;
         color: #fff !important;
         box-shadow: 0 2px 8px rgba(0,123,255,0.15);
-        border-radius: 6px;
         font-weight: 600;
-        transition: background 0.3s, box-shadow 0.3s;
-        border: none;
-        text-transform: none;
+        
         &:hover, &:focus {
           background-color: #0056b3 !important;
-          box-shadow: 0 4px 12px rgba(0,123,255,0.22);
+          box-shadow: 0 4px 12px rgba(0,123,255,0.25);
           color: #fff !important;
+          transform: translateY(-1px);
+        }
+      }
+      
+      .logout-button {
+        color: #dc3545;
+        background-color: #fff;
+        border: 1px solid #dc3545;
+        
+        &:hover {
+          background-color: #dc3545;
+          color: #fff;
+          transform: translateY(-1px);
+          box-shadow: 0 2px 8px rgba(220,53,69,0.15);
         }
       }
     }
@@ -108,6 +145,24 @@
       
       .search-container {
         margin: 0 20px;
+      }
+      
+      .profile-section {
+        gap: 8px;
+        
+        .button-group {
+          padding: 8px 12px;
+          
+          .button-text {
+            display: none;
+          }
+          
+          mat-icon {
+            font-size: 20px;
+            width: 20px;
+            height: 20px;
+          }
+        }
       }
     }
   }

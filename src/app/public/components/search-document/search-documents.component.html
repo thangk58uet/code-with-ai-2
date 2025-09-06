@@ -4,25 +4,19 @@
         <form [formGroup]="filterForm" (ngSubmit)="onFilter()" class="filter-form">
             <mat-form-field appearance="outline">
                 <mat-label>Tìm kiếm</mat-label>
-                <input matInput formControlName="search" placeholder="Tiêu đề hoặc nội dung..." />
+                <input matInput formControlName="search" placeholder="Tìm kiếm theo tiêu đề" />
             </mat-form-field>
             <mat-form-field appearance="outline">
                 <mat-label>Tag</mat-label>
-                <mat-select formControlName="tags" multiple>
-                    <mat-option *ngFor="let tag of tagOptions" [value]="tag">{{ tag }}</mat-option>
+                <mat-select formControlName="tags">
+                    <mat-option *ngFor="let tag of tagOptions" [value]="tag.name">{{ tag.name }}</mat-option>
                 </mat-select>
             </mat-form-field>
             <mat-form-field appearance="outline">
-                <mat-label>Ngày tạo từ</mat-label>
-                <input matInput [matDatepicker]="pickerFrom" formControlName="dateFrom" />
+                <mat-label>Ngày tạo</mat-label>
+                <input matInput [matDatepicker]="pickerFrom" formControlName="dateFrom" [max]="maxDate" readonly />
                 <mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>
-                <mat-datepicker #pickerFrom></mat-datepicker>
-            </mat-form-field>
-            <mat-form-field appearance="outline">
-                <mat-label>Ngày tạo đến</mat-label>
-                <input matInput [matDatepicker]="pickerTo" formControlName="dateTo" />
-                <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
-                <mat-datepicker #pickerTo></mat-datepicker>
+                <mat-datepicker #pickerFrom [startAt]="maxDate" [touchUi]="false"></mat-datepicker>
             </mat-form-field>
             <div>
                 <button mat-raised-button color="primary" type="submit" class="filter-btn">
@@ -34,17 +28,25 @@
 
     <!-- Results Card -->
     <mat-card class="result-card">
+      <ng-container *ngIf="filteredDocuments.length > 0; else noResults">
         <div class="document-list">
             <app-document-card
-                *ngFor="let document of pagedDocuments"
+                *ngFor="let document of filteredDocuments"
                 [document]="document"
             ></app-document-card>
         </div>
+
         <mat-paginator
             [length]="filteredDocuments.length"
             [pageSize]="pageSize"
             [pageIndex]="page - 1"
             (page)="goToPage($event.pageIndex + 1)"
         ></mat-paginator>
+      </ng-container>
+      <ng-template #noResults>
+        <div class="no-results">
+          <p>Không tìm thấy tài liệu nào.</p>
+        </div>
+      </ng-template>
     </mat-card>
 </div>

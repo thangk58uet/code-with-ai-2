@@ -35,4 +35,9 @@ export class UploadDocumentService {
     postDocument(file: File, title: string, description: string, sharing: 1 | 2 | 3, tags: string[]): Observable<any> {
         return this.postService.postDocument(file, title, description, sharing, tags);
     }
+
+    search(key: string, tag: string, date: string, page: number, pageSize: number): Observable<any> {
+        console.log(key, tag, date, page, pageSize)
+        return this.postService.search(key, tag, date, page, pageSize);
+    }
 }

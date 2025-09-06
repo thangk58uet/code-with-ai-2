@@ -46,4 +46,21 @@ export class PostService {
 
         return this.http.get(options);
     }
+    search(key: string, tag: string, date: string, pageNumber: number, pageSize: number): Observable<any> {
+        let params = {}
+        if (key) params = {...params, key}
+        if (tag) params = {...params, tag}
+        if (date) params = {...params, date}
+        if (pageNumber) params = {...params, pageNumber}
+        if (pageSize) params = {...params, pageSize}
+        const options: HttpOptions = {
+            url: `${environment.urlSystem}/user/post`,
+            isAuthentication: true,
+            path: 'search',
+            params
+        };
+        console.log(options.params, pageNumber, pageSize)
+
+        return this.http.get(options);
+    }
 }

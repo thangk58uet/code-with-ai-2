@@ -150,3 +150,9 @@
   background: #2563eb;
   color: #fff;
 }
+
+:host ::ng-deep {
+    .mat-form-field-suffix {
+        top: -1.25rem !important;
+    }
+}

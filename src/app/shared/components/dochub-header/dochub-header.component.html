@@ -6,26 +6,20 @@
       <h1>Dochub</h1>
     </div>
 
-    <!-- Search Bar -->
-    <div class="search-container">
-      <div class="search-input-wrapper">
-        <mat-icon class="search-icon">search</mat-icon>
-        <input 
-          type="text" 
-          class="search-input" 
-          placeholder="Tìm kiếm tài liệu..."
-          [(ngModel)]="searchQuery"
-          (keyup.enter)="onSearch()"
-        >
-      </div>
-    </div>
-
-    <!-- Profile -->
+    <!-- Navigation & Profile -->
     <div class="profile-section">
-      <button class="button-group create-document-button" mat-button (click)="navigateToCreateDocument()">
+      <button class="button-group search-button" mat-button (click)="navigateToSearch()">
+        <mat-icon>search</mat-icon>
+        <span class="button-text">Tìm kiếm</span>
+      </button>
+      <button class="button-group create-document-button" mat-raised-button (click)="navigateToCreateDocument()">
         <mat-icon>add</mat-icon>
-        Tạo tài liệu</button>
-      <button class="button-group" mat-button (click)="logout()">Đăng xuất</button>
+        <span class="button-text">Tạo tài liệu</span>
+      </button>
+      <button class="button-group logout-button" mat-button (click)="logout()">
+        <mat-icon>logout</mat-icon>
+        <span class="button-text">Đăng xuất</span>
+      </button>
     </div>
   </div>
 </header>

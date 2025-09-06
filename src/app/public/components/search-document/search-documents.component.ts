@@ -1,5 +1,8 @@
+import { DatePipe } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { TagService } from '@core/services/tag.service';
+import { UploadDocumentService } from '@shared/services/upload-document.service';
 
 interface Document {
   id: number;
@@ -17,58 +20,47 @@ interface Document {
 })
 export class SearchDocumentsComponent {
   filterForm: FormGroup;
-  tagOptions = ['Java', 'Angular', 'DevOps', 'AI', 'Design'];
+  tagOptions = [];
   groupOptions = ['All', 'Backend', 'Frontend', 'HR', 'AI Team'];
-  documents: Document[] = [
-    {
-      id: 1,
-      title: 'Queue In Java Spring Boot',
-      author: 'user23',
-      created_at: '2025-09-06',
-      tags: ['Java', 'Backend'],
-      rating: 4.5
-    },
-    {
-      id: 2,
-      title: 'Angular Material Guide',
-      author: 'user12',
-      created_at: '2025-08-21',
-      tags: ['Angular', 'Frontend'],
-      rating: 4.0
-    },
-    // ... thêm mock data
-  ];
+  maxDate = new Date(); // Ngày hiện tại
+  documents: Document[] = [];
   filteredDocuments: Document[] = [];
   page = 1;
-  pageSize = 5;
+  pageSize = 10;
 
-  constructor(private fb: FormBuilder) {
+  constructor(
+    private fb: FormBuilder,
+    private uploadDocumentService: UploadDocumentService,
+    private datePipe: DatePipe
+  ) {
     this.filterForm = this.fb.group({
       search: [''],
-      tags: [[]],
-      dateFrom: [''],
-      dateTo: [''],
-      group: ['All']
+      tags: [''],
+      dateFrom: [new Date()],
     });
     this.filteredDocuments = this.documents;
   }
 
-  onFilter() {
-    const { search, tags, dateFrom, dateTo, group } = this.filterForm.value;
-    this.filteredDocuments = this.documents.filter(doc => {
-      const matchSearch = !search || doc.title.toLowerCase().includes(search.toLowerCase());
-      const matchTags = !tags.length || tags.every((tag: string) => doc.tags.includes(tag));
-      const matchGroup = group === 'All' || doc.tags.includes(group);
-      const matchDateFrom = !dateFrom || new Date(doc.created_at) >= new Date(dateFrom);
-      const matchDateTo = !dateTo || new Date(doc.created_at) <= new Date(dateTo);
-      return matchSearch && matchTags && matchGroup && matchDateFrom && matchDateTo;
+  ngOnInit() {
+    this.uploadDocumentService.getTags().subscribe((res: any) => {
+      if (res?.code === '00') {
+        this.tagOptions = res?.data
+      }
     });
-    this.page = 1;
+    this.onFilter();
   }
 
-  get pagedDocuments() {
-    const start = (this.page - 1) * this.pageSize;
-    return this.filteredDocuments.slice(start, start + this.pageSize);
+  onFilter(page?: number) {
+    let p = page ?? 1;
+    const { search, tags, dateFrom } = this.filterForm.value;
+    const date = new Date(dateFrom);
+    const formatDate = this.datePipe.transform(date, 'yyyy-MM-dd');
+    this.uploadDocumentService.search(search, tags, formatDate, p, this.pageSize).subscribe(res => {
+      if (res.code === '00') {
+        this.filteredDocuments = res.data;
+      }
+    })
+    this.page = 1;
   }
 
   totalPages() {
@@ -77,5 +69,6 @@ export class SearchDocumentsComponent {
 
   goToPage(p: number) {
     this.page = p;
+    this.onFilter(this.page);
   }
 }

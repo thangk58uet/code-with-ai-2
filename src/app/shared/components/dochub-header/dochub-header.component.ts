@@ -35,4 +35,8 @@ export class DochubHeaderComponent {
   navigateToHomePage() {
     this.router.navigate(['/'])
   }
+
+  navigateToSearch() {
+    this.router.navigate(['/search']);
+  }
 }

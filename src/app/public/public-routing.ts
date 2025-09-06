@@ -7,10 +7,11 @@ import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { UploadDocumentComponent } from '@shared/components/upload-document/upload-document.component';
 import { ViewDetailComponent } from '@shared/components/view-detail/view-detail.component';
+import { SearchDocumentsComponent } from './components/search-document/search-documents.component';
 
 const routes: Routes = [
   {
-    path: '', component: HomeComponent, children:
+    path: '', component: HomeComponent, canActivate: [AuthGuard], children:
     [
       {
         path: '', loadChildren: () => import('../features/feature.module').then(m => m.FeatureModule)
@@ -21,6 +22,10 @@ const routes: Routes = [
       {
         path: 'view-detail/:postId',
         component: ViewDetailComponent
+      },
+      {
+        path: 'search',
+        component: SearchDocumentsComponent
       }
     ],
   },

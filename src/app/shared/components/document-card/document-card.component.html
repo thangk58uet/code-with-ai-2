@@ -7,27 +7,32 @@
       </button>
     </div>
     <div class="category-tag">
-      {{ document.category }}
+      <span class="document-filename" *ngFor="let item of document.tags">{{ item.tag_name }}</span>
     </div>
-    
-    <p class="document-description">{{ document.description }}</p>
+    <p class="document-description">{{ document.short_description }}</p>
     
     <div class="document-meta">
       <div class="author-info">
         <mat-icon class="author-icon">person</mat-icon>
-        <span class="author-name">{{ document.author }}</span>
+        <span class="author-name">{{ document.username }}</span>
       </div>
-      
       <div class="date-info">
         <mat-icon class="date-icon">calendar_today</mat-icon>
-        <span class="date-text">{{ document.date }}</span>
+        <span class="date-text">{{ document.created_at | date:'dd/MM/yyyy' }}</span>
+      </div>
+      <div class="rating-section" *ngIf="document.comments_avg_star">
+        <mat-icon class="star-icon">star</mat-icon>
+        <span class="rating-text">{{ document.comments_avg_star | number: '1.0-1' }}</span>
       </div>
     </div>
-    
-    <div class="rating-section" *ngIf="showRating && document.rating">
-      <mat-icon class="star-icon">star</mat-icon>
-      <span class="rating-text">{{ document.rating }}</span>
-    </div>
+
+    <!-- Không còn trường rating, có thể hiển thị sharing -->
+    <!-- <div class="sharing-section">
+      <span class="sharing-label">Chia sẻ: </span>
+      <span class="sharing-value">
+        {{ document.sharing === 1 ? 'Private' : (document.sharing === 2 ? 'Group' : 'Public') }}
+      </span>
+    </div> -->
     
     <button class="view-details-btn" (click)="onViewDetails()">
       Xem chi tiết

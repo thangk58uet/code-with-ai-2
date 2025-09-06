@@ -8,7 +8,7 @@
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
   cursor: pointer;
-
+  height: 100%;
   &:hover {
     transform: translateY(-2px);
     box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
@@ -73,8 +73,8 @@
 
     .document-meta {
       display: flex;
-      flex-direction: column;
       gap: 8px;
+      justify-content: space-between;
       margin-bottom: 16px;
 
       .author-info,
@@ -102,7 +102,6 @@
       display: flex;
       align-items: center;
       gap: 4px;
-      margin-bottom: 16px;
 
       .star-icon {
         font-size: 16px;

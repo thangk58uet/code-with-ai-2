@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthenticationService } from '@core/services/authentication.service';
 
 @Component({
   selector: 'app-dochub-header',
@@ -7,7 +8,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./dochub-header.component.scss']
 })
 export class DochubHeaderComponent {
-  constructor(private router: Router) {
+  constructor(
+    private router: Router,
+    private authenticationService: AuthenticationService
+  ) {
   }
   searchQuery: string = '';
 
@@ -16,8 +20,9 @@ export class DochubHeaderComponent {
     // Implement search functionality here
   }
 
-  onProfileClick() {
-    console.log('Profile clicked');
+  logout() {
+    console.log('logout')
+    this.authenticationService.logout();
     // Implement profile functionality here
   }
 
@@ -27,4 +32,7 @@ export class DochubHeaderComponent {
     this.router.navigate(['/create-document']);
   }
   
+  navigateToHomePage() {
+    this.router.navigate(['/'])
+  }
 }

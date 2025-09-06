@@ -1,0 +1,50 @@
+<div class="search-documents-wrapper">
+    <!-- Filter Card -->
+    <mat-card class="filter-card">
+        <form [formGroup]="filterForm" (ngSubmit)="onFilter()" class="filter-form">
+            <mat-form-field appearance="outline">
+                <mat-label>Tìm kiếm</mat-label>
+                <input matInput formControlName="search" placeholder="Tiêu đề hoặc nội dung..." />
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Tag</mat-label>
+                <mat-select formControlName="tags" multiple>
+                    <mat-option *ngFor="let tag of tagOptions" [value]="tag">{{ tag }}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Ngày tạo từ</mat-label>
+                <input matInput [matDatepicker]="pickerFrom" formControlName="dateFrom" />
+                <mat-datepicker-toggle matSuffix [for]="pickerFrom"></mat-datepicker-toggle>
+                <mat-datepicker #pickerFrom></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+                <mat-label>Ngày tạo đến</mat-label>
+                <input matInput [matDatepicker]="pickerTo" formControlName="dateTo" />
+                <mat-datepicker-toggle matSuffix [for]="pickerTo"></mat-datepicker-toggle>
+                <mat-datepicker #pickerTo></mat-datepicker>
+            </mat-form-field>
+            <div>
+                <button mat-raised-button color="primary" type="submit" class="filter-btn">
+                    Lọc
+                </button>
+            </div>
+        </form>
+    </mat-card>
+
+    <!-- Results Card -->
+    <mat-card class="result-card">
+        <div class="document-list">
+            <app-document-card
+                *ngFor="let document of pagedDocuments"
+                [document]="document"
+            ></app-document-card>
+        </div>
+        <mat-paginator
+            [length]="filteredDocuments.length"
+            [pageSize]="pageSize"
+            [pageIndex]="page - 1"
+            (page)="goToPage($event.pageIndex + 1)"
+        ></mat-paginator>
+    </mat-card>
+</div>

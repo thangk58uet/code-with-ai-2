@@ -2,14 +2,30 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
 
 export interface Document {
-  id: string;
+  id: number;
   title: string;
-  category: string;
-  description: string;
-  author: string;
-  date: string;
-  rating?: number;
+  file_name: string;
+  file_name_original: string;
+  path: string;
+  short_description: string;
+  sharing: number;     // có thể là enum: 1=Private, 2=Group, 3=Public
+  group_id: number;
+  username: string;
+  created_at: string;  // hoặc Date
+  updated_at: string;  // hoặc Date
+  comments_avg_star: string; // có thể đổi thành number nếu backend trả số
+  tags: Tags[];
 }
+
+
+export interface Tags {
+  id: number;
+  post_id: number;
+  tag_name: string;
+  created_at: string;  // ISO Date string
+  updated_at: string;  // ISO Date string
+}
+
 
 @Component({
   selector: 'app-document-card',
@@ -18,15 +34,12 @@ export interface Document {
 })
 export class DocumentCardComponent {
   @Input() document: Document;
-  @Input() showRating: boolean = false;
   @Input() showMoreButton: boolean = false;
-  @Output() viewDetails = new EventEmitter<Document>();
 
-  constructor(private router: Router) {
-  }
+  constructor(private router: Router) {}
 
   onViewDetails() {
-    this.viewDetails.emit(this.document);
+    this.router.navigate(['/view-detail', this.document.id])
   }
 
   onViewAll() {

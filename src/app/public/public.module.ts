@@ -9,6 +9,7 @@ import { SidebarLeftComponent } from './components/sidebar-left/sidebar-left.com
 import { SubMenuComponent } from './components/sub-menu/sub-menu.component';
 import { UserInfoComponent } from './components/user-info/user-info.component';
 import { ChartsModule } from 'ng2-charts';
+import { SearchDocumentsComponent } from './components/search-document/search-documents.component';
 
 @NgModule({
   declarations: [
@@ -19,6 +20,7 @@ import { ChartsModule } from 'ng2-charts';
     SidebarLeftComponent,
     SubMenuComponent,
     UserInfoComponent,
+    SearchDocumentsComponent
   ],
   imports: [
     SharedModule,

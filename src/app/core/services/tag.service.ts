@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '@env/environment';
+import { HttpClientService } from './httpclient.service';
+import { HttpOptions } from './model/request.base.dto';
+import { url } from 'inspector';
 
 export interface Tag {
     id: number;
@@ -15,27 +18,15 @@ export interface Tag {
     providedIn: 'root'
 })
 export class TagService {
-    private readonly apiUrl = '/tag';
+    private readonly baseUrl = '/tag';
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClientService) {}
 
     getAllTags(): Observable<Tag[]> {
-        return this.http.get<Tag[]>(`${environment.urlSystem}${this.apiUrl}/index`);
-    }
-
-    getTagById(id: number): Observable<Tag> {
-        return this.http.get<Tag>(`${this.apiUrl}/${id}`);
-    }
-
-    createTag(tag: Partial<Tag>): Observable<Tag> {
-        return this.http.post<Tag>(this.apiUrl, tag);
-    }
-
-    updateTag(id: number, tag: Partial<Tag>): Observable<Tag> {
-        return this.http.put<Tag>(`${this.apiUrl}/${id}`, tag);
-    }
-
-    deleteTag(id: number): Observable<void> {
-        return this.http.delete<void>(`${this.apiUrl}/${id}`);
+        const options: HttpOptions = {
+            url: `${environment.urlSystem}${this.baseUrl}`,
+            path: 'index'
+        }
+        return this.http.get<Tag[]>(options);
     }
 }

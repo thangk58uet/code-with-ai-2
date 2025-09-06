@@ -22,33 +22,28 @@
       <!-- Title -->
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Tên tài liệu</mat-label>
-        <input matInput formControlName="title" required />
+        <input matInput formControlName="title" required maxlength="100" />
         <mat-error *ngIf="uploadForm.get('title')?.hasError('required')">Tên tài liệu là bắt buộc</mat-error>
       </mat-form-field>
       <!-- Description -->
-      <mat-form-field appearance="outline" class="full-width">
-        <mat-label>Mô tả tài liệu</mat-label>
-        <textarea matInput formControlName="description" required></textarea>
-        <mat-error *ngIf="uploadForm.get('description')?.hasError('required')">Mô tả tài liệu là bắt buộc</mat-error>
-      </mat-form-field>
-      <!-- Summary -->
-      <mat-form-field appearance="outline" class="full-width summary-field">
+      <mat-form-field appearance="outline" class="full-width pb-2">
         <mat-label>Tóm tắt tài liệu</mat-label>
-        <textarea matInput formControlName="summary" maxlength="500" placeholder="Nhập tóm tắt hoặc tạo một cái với AI (tối đa 500 từ)"></textarea>
-        <div class="summary-count">{{uploadForm.get('summary')?.value?.length || 0}}/500</div>
+        <textarea matInput formControlName="description" required maxlength="500"></textarea>
+        <div class="summary-count">{{uploadForm.get('description')?.value?.length || 0}}/500</div>
+        <mat-error *ngIf="uploadForm.get('description')?.hasError('required')">Tóm tắt tài liệu là bắt buộc</mat-error>
       </mat-form-field>
       <!-- Tags -->
       <mat-form-field appearance="outline" class="full-width">
         <mat-label>Tags/Labels</mat-label>
         <mat-select formControlName="tags" multiple>
-          <mat-option *ngFor="let option of tagOptions" [value]="option">{{option}}</mat-option>
+          <mat-option *ngFor="let option of tagOptions" [value]="option.name">{{option.name}}</mat-option>
         </mat-select>
       </mat-form-field>
       <!-- Sharing Settings -->
       <mat-radio-group formControlName="sharing" class="sharing-group">
-        <mat-radio-button value="private">Private</mat-radio-button>
-        <mat-radio-button value="group">Group</mat-radio-button>
-        <mat-radio-button value="public">Public</mat-radio-button>
+        <mat-radio-button value="1">Private</mat-radio-button>
+        <mat-radio-button value="2">Group</mat-radio-button>
+        <mat-radio-button value="3">Public</mat-radio-button>
       </mat-radio-group>
       <!-- Upload Button -->
       <button mat-raised-button color="primary" class="upload-btn" type="submit" [disabled]="uploadForm.invalid">Tải tài liệu</button>

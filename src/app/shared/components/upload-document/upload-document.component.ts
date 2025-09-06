@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { COMMA, ENTER } from '@angular/cdk/keycodes';
 import { UploadDocumentService } from '@shared/services/upload-document.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'app-upload-document',
@@ -25,17 +26,20 @@ export class UploadDocumentComponent {
     summaryMaxLength = 500;
     tags: string[] = [];
 
-    tagOptions: string[] = ['Important', 'Review', 'Personal', 'Work', 'Urgent', 'Archive'];
+    tagOptions: string[] = [];
     readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
-    constructor(private fb: FormBuilder, private uploadService: UploadDocumentService) {
+    constructor(
+        private fb: FormBuilder,
+        private uploadService: UploadDocumentService,
+        private router: Router
+    ) {
         this.uploadForm = this.fb.group({
             file: [null, Validators.required],
             title: ['', Validators.required],
-            description: ['', Validators.required],
-            summary: ['', [Validators.maxLength(this.summaryMaxLength)]],
+            description: ['', [Validators.required, Validators.maxLength(this.summaryMaxLength)]],
             tags: [[]],
-            sharing: ['private', Validators.required],
+            sharing: ['1', Validators.required],
         });
     }
 
@@ -44,8 +48,8 @@ export class UploadDocumentComponent {
     }
 
     loadTagOptions() {
-        this.uploadService.getTags().subscribe((tags) => {
-            this.tagOptions = tags.map((tag: any) => tag.name);
+        this.uploadService.getTags().subscribe((res) => {
+            this.tagOptions = res?.data || [];
         });
     }
 
@@ -109,6 +113,17 @@ export class UploadDocumentComponent {
     onSubmit() {
         if (this.uploadForm.invalid) return;
         // TODO: Xử lý upload
-        alert('Tài liệu đã được upload!');
+        this.uploadService.postDocument(
+            this.uploadForm.get('file')?.value,
+            this.uploadForm.get('title')?.value,
+            this.uploadForm.get('description')?.value,
+            this.uploadForm.get('sharing')?.value === 'public' ? 3 : this.uploadForm.get('sharing')?.value === 'team' ? 2 : 1,
+            this.uploadForm.get('tags')?.value
+        ).subscribe((res) => {
+            if (res.code === '00') {
+                this.router.navigate(['']);
+                // Reset form hoặc thông báo thành công
+            }
+        });
     }
 }

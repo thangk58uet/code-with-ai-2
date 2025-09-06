@@ -1,24 +1,21 @@
 <div class="dochub-homepage">
   
   <app-welcome-section 
-    userName="John"
-    subtitle="Stay updated with the latest documents and company information."
+    [userName]="userName"
+    subtitle="Cập nhật thông tin tài liệu công ty mới nhất."
   ></app-welcome-section>
   
   <app-documents 
     [title]="'Bài viết mới nhất'"
     [documents]="latestDocuments"
-    (documentSelected)="onDocumentSelected($event)"
   ></app-documents>
   <app-documents 
     [title]="'Bài viết nổi bật'"
     [documents]="featuredDocuments"
-    (documentSelected)="onDocumentSelected($event)"
   ></app-documents>
   <app-documents 
     [title]="'Bài viết của tôi'"
     [documents]="myDocuments"
     [showMoreButton]="true"
-    (documentSelected)="onDocumentSelected($event)"
   ></app-documents>
 </div>

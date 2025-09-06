@@ -3,6 +3,7 @@ import { HttpClient, HttpEvent, HttpEventType, HttpRequest } from '@angular/comm
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { TagService } from '@core/services/tag.service';
+import { PostService } from '@core/services/post.service';
 
 export interface UploadResponse {
     id: string;
@@ -23,11 +24,15 @@ export interface UploadProgress {
 export class UploadDocumentService {
 
     constructor(
-        private http: HttpClient,
-        private tagService: TagService
+        private tagService: TagService,
+        private postService: PostService
     ) {}
 
     getTags(): Observable<any> {
         return this.tagService.getAllTags();
+    }
+
+    postDocument(file: File, title: string, description: string, sharing: 1 | 2 | 3, tags: string[]): Observable<any> {
+        return this.postService.postDocument(file, title, description, sharing, tags);
     }
 }

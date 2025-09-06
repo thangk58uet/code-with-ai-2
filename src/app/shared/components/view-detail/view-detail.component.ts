@@ -61,9 +61,9 @@ export class ViewDetailComponent implements OnInit {
     loadTagOptions() {
         this.uploadService.getTags().subscribe((res) => {
             this.tagOptions = res?.data || [];
+            console.log(this.tagOptions )
         });
     }
-
     onFileChange(event: any) {
     const file = event.target.files[0];
     this.validateFile(file);
@@ -148,7 +148,7 @@ export class ViewDetailComponent implements OnInit {
                 this.uploadForm.get('title')?.setValue(res.data.title);
                 this.uploadForm.get('description')?.setValue(res.data.short_description);
                 this.uploadForm.get('summary')?.setValue(res.data.summary);
-                this.uploadForm.get('tags')?.setValue(res.data.tags);
+                this.uploadForm.get('tags')?.setValue(res.data.tags.map(t => t.tag_name));
                 this.uploadForm.get('sharing')?.setValue(res.data.sharing);
                 this.fileUrl = 'http://10.112.180.86:8080/'+ res.data.path;
                 console.log('uploadForm', this.uploadForm);

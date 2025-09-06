@@ -4,6 +4,7 @@ import { MenuCoreService } from "@core/services/menu.core.service";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { AuthenticationService } from "@core/services/authentication.service";
 import { MessageSeverity, ToastService } from "@core/services/toast.service";
+import { group } from "console";
 
 @Component({
   selector: "app-login",
@@ -12,18 +13,36 @@ import { MessageSeverity, ToastService } from "@core/services/toast.service";
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
+  registerForm: FormGroup;
   constructor(
     private menu: MenuCoreService,
     private formBuilder: FormBuilder,
     private toastService: ToastService,
     private authenticationService: AuthenticationService,
   ) { }
+  action = 'login';
+  groupOptions: any[];
+  selectedGroup: number;
 
   ngOnInit(): void {
+    this.getGroupIndex();
     this.loginForm = this.formBuilder.group({
       username: ["", Validators.required],
       password: ["", Validators.required],
     });
+    this.registerForm = this.formBuilder.group({
+      usernameRegister: ["", Validators.required, Validators.maxLength(25)],
+      password: ["", Validators.required, Validators.maxLength(40), Validators.minLength(6)],
+      groupId: [1, Validators.required],
+    });
+  }
+
+  private getGroupIndex() {
+    this.authenticationService.getGroupIndex().subscribe(res => {
+      if (res.code == '00' && res.data) {
+        this.groupOptions = res.data;
+      }
+    })
   }
 
   /**
@@ -44,18 +63,25 @@ export class LoginComponent implements OnInit {
       `${username}:${password}`
     );
     this.authenticationService
-      .login(username, password).subscribe(
-        () => {
-          if (this.authenticationService.tokenValid()) {
-            this.menu.navigateToHome();
-            this.toastService.showToastr(
-              'Đăng nhập thành công',
-              'Thông báo!',
-              MessageSeverity.success
-            );
+      .login(username, password).subscribe(res => {
+          if (res.code == '00') {
+            if (this.authenticationService.tokenValid()) {
+              this.menu.navigateToHome();
+              this.toastService.showToastr(
+                'Đăng nhập thành công',
+                'Thông báo!',
+                MessageSeverity.success
+              );
+            } else {
+              this.toastService.showToastr(
+                'Bạn không có quyền truy cập',
+                'Thông báo!',
+                MessageSeverity.error
+              );
+            }
           } else {
             this.toastService.showToastr(
-              'Bạn không có quyền truy cập',
+              '' + res.message,
               'Thông báo!',
               MessageSeverity.error
             );
@@ -70,4 +96,40 @@ export class LoginComponent implements OnInit {
         }
       );
   }
+
+  registerAccount() {
+    this.action = this.action == 'register' ? 'login' : 'register';
+  }
+
+  register() {
+    debugger;
+    // if (this.registerForm.invalid) {
+    //   this.toastService.showToastr(
+    //     'Vui lòng nhập đầy đủ username và password',
+    //     'Thông báo!',
+    //     MessageSeverity.warning
+    //   );
+    //   return;
+    // }
+    let { username, password, groupId } = this.registerForm.value;
+    username = 'user23';
+    password = '123456'
+    this.authenticationService.register(username, password, groupId).subscribe(res => {
+      if (res.code == '00') {
+        this.toastService.showToastr(
+          'Đăng ký thành công',
+          'Thông báo!',
+          MessageSeverity.success
+        );
+        this.registerAccount();
+      } else {
+        this.toastService.showToastr(
+          res.message,
+          'Thông báo!',
+          MessageSeverity.error
+        );
+      }
+    })
+  }
+  
 }

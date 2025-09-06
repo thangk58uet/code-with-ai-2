@@ -5,7 +5,7 @@
         <div class="imgcontainer">
           <img src="assets/images/login_avatar.png" alt="Avatar" class="avatar">
         </div>
-        <div fxFlex="100">
+        <div fxFlex="100" *ngIf="action == 'login'">
           <form [formGroup]="loginForm" class="mrt-4" (ngSubmit)="login()">
             <mat-form-field class="form-group-login">
               <mat-label>Tài khoản</mat-label>
@@ -21,6 +21,32 @@
               <mat-checkbox checked="checked" name="remember">Remember me</mat-checkbox>
             </div>
             <button class="login-button" mat-raised-button type="submit">ĐĂNG NHẬP</button>
+          </form>
+          <button class="register-account" (click)="registerAccount()">Chưa có tài khoản, đăng ký ngay</button>
+        </div>
+
+        <div fxFlex="100" *ngIf="action == 'register'">
+          <form [formGroup]="registerForm" class="mrt-4" (ngSubmit)="register()">
+            <mat-form-field class="form-group-login">
+              <mat-label>Tài khoản</mat-label>
+              <input #usernameRegister matInput formControlName="usernameRegister" autofocus>
+              <mat-icon matSuffix class="login-icon">account_circle</mat-icon>
+            </mat-form-field>
+            <mat-form-field class="form-group-login">
+              <mat-label>Mật khẩu</mat-label>
+              <input matInput type="password" formControlName="password" autocomplete="off" id="passwordRegister">
+              <mat-icon matSuffix class="login-icon">lock</mat-icon>
+            </mat-form-field>
+            <mat-form-field class="form-group-login">
+              <mat-label>Nhóm</mat-label>
+              <mat-select formControlName="groupId">
+                <mat-option *ngFor="let group of groupOptions" [value]="group.id">
+                  {{ group.name }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+            <button class="login-button" mat-raised-button type="submit">ĐĂNG KÝ</button>
+            <button class="register-account" (click)="registerAccount()">Đã có tài khoản, đăng nhập ngay</button>
           </form>
         </div>
       </div>

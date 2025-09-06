@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  urlSystem: 'http://gapi.5203979.com/api'
+  urlSystem: 'http://10.112.180.86:8080/api'
 }
 
 /*

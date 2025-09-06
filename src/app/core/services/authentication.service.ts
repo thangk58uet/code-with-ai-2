@@ -55,17 +55,51 @@ export class AuthenticationService {
 
   }
 
+  register(username: string, password: string, groupId) {
+    const opstions: HttpOptions = {
+      path: PATH.REGISTER_USER,
+      url: URL_SYSTEM,
+      body: {
+        username: username,
+        password: password,
+        groupId: groupId
+      },
+      isAuthentication: false,
+    };
+    // call api /generate-token
+    return this.httpClient.post(opstions).pipe(
+      map((response: HttpInterface<any>) => {
+        return response;
+      })
+    );
+  }
+
+  getGroupIndex() {
+    const opstions: HttpOptions = {
+      path: PATH.GET_GROUP_USER,
+      url: URL_SYSTEM,
+      isAuthentication: false,
+    };
+    return this.httpClient.get(opstions).pipe(
+      map((response: HttpInterface<any>) => {
+        return response;
+      })
+    );
+
+  }
+
   /**
    * xử lý button logout
    */
   logout() {
-    const opstions: HttpOptions = {
-      path: PATH.REVOKE_TOKEN,
-      url: URL_SYSTEM,
-      params: { token: this.localStorage.getData(LocalStorageEnum.RefreshToken) },
-    };
-    // call api /revoke-token
-    this.httpClient.delete(opstions).pipe(take(1)).subscribe(res => {this.clearData()});
+    // const opstions: HttpOptions = {
+    //   path: PATH.REVOKE_TOKEN,
+    //   url: URL_SYSTEM,
+    //   params: { token: this.localStorage.getData(LocalStorageEnum.RefreshToken) },
+    // };
+    // // call api /revoke-token
+    // this.httpClient.delete(opstions).pipe(take(1)).subscribe(res => {this.clearData()});
+    this.clearData()
   }
 
   /**
@@ -167,7 +201,7 @@ export class AuthenticationService {
     const decodedAccessToken = this.jwtHelper.decodeToken(data.token);
     this.setToken(data.token);
     this.setRefreshToken(data.token);
-    this.setTimeExpiration(data.expires_in);
+    this.setTimeExpiration(10000000);
     if (isRefresh) {
       this.setUserToLocalStorage(decodedAccessToken);
       // sort left menu by sortOrder

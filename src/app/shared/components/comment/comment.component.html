@@ -1,0 +1,48 @@
+<div class="fb-comments-wrap">
+    <!-- box thêm comment -->
+    <div class="composer">
+      <img class="avatar" src="https://i.pravatar.cc/60?img=6" alt="avatar">
+      <div class="composer-input">
+        <textarea [(ngModel)]="newCommentText" placeholder="Viết bình luận..." rows="1"></textarea>
+        <div class="composer-actions">
+          <button class="btn primary" (click)="addComment()" [disabled]="!newCommentText.trim()">Bình luận</button>
+        </div>
+      </div>
+    </div>
+  
+    <!-- danh sách comment -->
+    <div class="comments-list">
+      <div class="comment-item" *ngFor="let commentItem of commentItems">
+        <!-- <img class="avatar" [src]="c.avatar" alt="avatar"> -->
+        <div class="comment-body">
+          <div class="comment-head">
+            <span class="author">{{ commentItem.username }}</span>
+            <span class="dot">·</span>
+            <span class="time">{{ commentItem.created_at | date }}</span>
+          </div>
+          <div class="comment-content">{{ commentItem.comment }}</div>
+
+  
+          <!-- replies -->
+          <!-- <div class="replies" *ngIf="c.showReplies && c.replies?.length">
+            <div class="reply" *ngFor="let r of c.replies">
+              <img class="avatar" [src]="r.avatar" alt="avatar">
+              <div class="reply-body">
+                <div class="comment-head">
+                  <span class="author">{{ r.author }}</span>
+                  <span class="dot">·</span>
+                  <span class="time">{{ r.time }}</span>
+                </div>
+                <div class="comment-content">{{ r.content }}</div>
+                <div class="comment-actions">
+                  <button class="action" (click)="toggleLike(r)">{{ r.liked ? 'Bỏ thích' : 'Thích' }} <span *ngIf="r.likes">({{ r.likes }})</span></button>
+                </div>
+              </div>
+            </div>
+          </div> -->
+  
+        </div>
+      </div>
+    </div>
+  </div>
+  

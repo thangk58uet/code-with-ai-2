@@ -6,6 +6,7 @@ import { ErrorComponent } from './components/error/error.component';
 import { HomeComponent } from './components/home/home.component';
 import { LoginComponent } from './components/login/login.component';
 import { UploadDocumentComponent } from '@shared/components/upload-document/upload-document.component';
+import { ViewDetailComponent } from '@shared/components/view-detail/view-detail.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,10 @@ const routes: Routes = [
       },
       {
         path: 'create-document', component: UploadDocumentComponent
+      },
+      {
+        path: 'view-detail/:postId',
+        component: ViewDetailComponent
       }
     ],
   },

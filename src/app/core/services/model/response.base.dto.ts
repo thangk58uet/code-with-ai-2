@@ -10,6 +10,7 @@ export interface HttpInterface<T> {
     soaErrorDesc: string;
     status: number;
     code: string;
+    message: string;
 }
 
 export interface HttpErrorInterface {

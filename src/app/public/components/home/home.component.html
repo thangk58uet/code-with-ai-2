@@ -2,7 +2,7 @@
   <app-header></app-header>
   <div class="main-content h-100">
     <mat-sidenav-container class="home-container h-100">
-      <mat-sidenav
+      <!-- <mat-sidenav
         class="side-nav"
         [class.side-nav-closed]="!opened"
         #sidenav
@@ -12,11 +12,10 @@
         [resizableMinWidth]="200"
       >
         <app-sidebar-left (menuEventEmitter)="openMenu()"></app-sidebar-left>
-      </mat-sidenav>
+      </mat-sidenav> -->
 
       <mat-sidenav-content
         class="dashboard-col"
-        [ngStyle]="marginLeftSideNav(sidenav._width)"
       >
         <div class="dashboard-content raised-section" *ngIf='routeTitle && routeTitle !== "BPM"'>
           <div class="section-title">{{ routeTitle == undefined ? 'Welcome' :  routeTitle}}</div>

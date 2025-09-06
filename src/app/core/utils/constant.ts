@@ -6,6 +6,8 @@ export const STATUS = { SUCCESS: 0, ERROR: 500 };
 
 export const PATH = {
     GENERATE_TOKEN: 'public/login',
+    GET_GROUP_USER: 'public/group/index',
+    REGISTER_USER: 'public/register',
     AUTO_GENERATE_TOKEN: 'generate-token-url',
     REVOKE_TOKEN: 'revoke-token',
     USER_INFO: 'user-info',

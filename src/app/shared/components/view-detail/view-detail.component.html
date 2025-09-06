@@ -1,7 +1,7 @@
-<div class="upload-doc-wrapper">
+<div class="upload-doc-wrapper" *ngIf="statusCode == '00'">
     <h2 class="main-title">Chi tiết tài liệu</h2>
     <div class="subtitle">Chia sẻ kiến thức và đóng góp vào kho tài liệu của công ty</div>
-    <mat-card class="upload-card">
+    <mat-card class="upload-card" *ngIf="isEditPermission">
       <form [formGroup]="uploadForm" (ngSubmit)="onSubmit()">
         <!-- File Upload -->
         <div class="file-upload-section"
@@ -18,6 +18,7 @@
             <div class="file-hint">Kéo thả hoặc chọn file DOC, PDF, JPG, PNG. Tối đa 10MB.</div>
             <div class="file-error" *ngIf="fileError">{{fileError}}</div>
         </div>
+        <a href="{{fileUrl}}" target="_blank" style="display: block; margin-bottom: 20px;">Xem trước tài liệu hiện tại</a>
         <!-- Title -->
         <mat-form-field appearance="outline" class="full-width">
           <mat-label>Tên tài liệu</mat-label>
@@ -26,32 +27,67 @@
         </mat-form-field>
         <!-- Description -->
         <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Mô tả tài liệu</mat-label>
+          <mat-label>Tóm tắt tài liệu</mat-label>
           <textarea matInput formControlName="description" required></textarea>
           <mat-error *ngIf="uploadForm.get('description')?.hasError('required')">Mô tả tài liệu là bắt buộc</mat-error>
         </mat-form-field>
-        <!-- Summary -->
-        <mat-form-field appearance="outline" class="full-width summary-field">
-          <mat-label>Tóm tắt tài liệu</mat-label>
-          <textarea matInput formControlName="summary" maxlength="500" placeholder="Nhập tóm tắt hoặc tạo một cái với AI (tối đa 500 từ)"></textarea>
-          <div class="summary-count">{{uploadForm.get('summary')?.value?.length || 0}}/500</div>
-        </mat-form-field>
         <!-- Tags -->
         <mat-form-field appearance="outline" class="full-width">
-          <mat-label>Tags/Labels</mat-label>
-          <mat-select formControlName="tags" multiple>
-            <mat-option *ngFor="let option of tagOptions" [value]="option">{{option}}</mat-option>
-          </mat-select>
+            <mat-label>Tags/Labels</mat-label>
+            <mat-select formControlName="tags" multiple>
+              <mat-option *ngFor="let option of tagOptions" [value]="option.name">{{option.name}}</mat-option>
+            </mat-select>
         </mat-form-field>
         <!-- Sharing Settings -->
         <mat-radio-group formControlName="sharing" class="sharing-group">
-          <mat-radio-button value="private">Private</mat-radio-button>
-          <mat-radio-button value="group">Group</mat-radio-button>
-          <mat-radio-button value="public">Public</mat-radio-button>
+          <mat-radio-button [value]="1">Private</mat-radio-button>
+          <mat-radio-button [value]="2">Group</mat-radio-button>
+          <mat-radio-button [value]="3">Public</mat-radio-button>
         </mat-radio-group>
         <!-- Upload Button -->
-        <button mat-raised-button color="primary" class="upload-btn" type="submit" [disabled]="uploadForm.invalid">Update tài tài liệu</button>
+        <button mat-raised-button color="primary" class="upload-btn" type="submit">Update tài tài liệu</button>
       </form>
+      <div class="comment">
+        <app-comment [postId]="postId" [commentItems]="comments"></app-comment>
+        <app-share-button></app-share-button>
+    </div>
     </mat-card>
-  </div>
-  
+    <mat-card class="upload-card" *ngIf="!isEditPermission">
+        <form [formGroup]="uploadForm">
+          <!-- Title -->
+        <!-- Title -->
+        <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Tên tài liệu</mat-label>
+            <input matInput formControlName="title" required disabled="true" />
+            <mat-error *ngIf="uploadForm.get('title')?.hasError('required')">Tên tài liệu là bắt buộc</mat-error>
+          </mat-form-field>
+          <!-- Description -->
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Tóm tắt tài liệu</mat-label>
+            <textarea matInput formControlName="description" required disabled="true"></textarea>
+            <mat-error *ngIf="uploadForm.get('description')?.hasError('required')">Mô tả tài liệu là bắt buộc</mat-error>
+          </mat-form-field>
+          <!-- Tags -->
+          <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Tags/Labels</mat-label>
+              <mat-select formControlName="tags" multiple [disabled]="true">
+                <mat-option *ngFor="let option of tagOptions" [value]="option.name">{{option.name}}</mat-option>
+              </mat-select>
+          </mat-form-field>
+          <!-- Sharing Settings -->
+          <mat-radio-group formControlName="sharing" class="sharing-group" [disabled]="true">
+            <mat-radio-button [value]="1">Private</mat-radio-button>
+            <mat-radio-button [value]="2">Group</mat-radio-button>
+            <mat-radio-button [value]="3">Public</mat-radio-button>
+          </mat-radio-group>
+        </form>
+
+        <div class="comment">
+            <app-comment [postId]="postId" [commentItems]="comments"></app-comment>
+            <app-share-button></app-share-button>
+        </div>
+      </mat-card>
+</div>
+<div class="upload-doc-wrapper" *ngIf="statusCode !== '00'">
+    <h2 class="main-title">{{ statusMessage }}</h2>
+</div>

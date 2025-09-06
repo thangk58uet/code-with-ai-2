@@ -4,6 +4,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { ActivatedRoute, Route, Router } from '@angular/router';
 import { DocumentService } from '@core/services/document.service';
+import { LocalStorageManagerService } from '@core/services/local-store-manager.service';
+import { UploadDocumentService } from '@shared/services/upload-document.service';
 
 @Component({
     selector: 'app-view-detail',
@@ -19,30 +21,47 @@ export class ViewDetailComponent implements OnInit {
     allowedTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'image/jpeg', 'image/png'];
     summaryMaxLength = 500;
     tags: string[] = [];
+    fileUrl = '';
 
-    tagOptions: string[] = ['Important', 'Review', 'Personal', 'Work', 'Urgent', 'Archive'];
+    tagOptions: string[] = [];
     readonly separatorKeysCodes: number[] = [ENTER, COMMA];
     postId: string;
     documentDetail: any;
+    statusCode = '0';
+    statusMessage = '';
+    username = '';
+    isEditPermission = false;
+    comments: any[];
 
-    constructor(private fb: FormBuilder, private documentService: DocumentService, private route: ActivatedRoute) {
+    constructor(private fb: FormBuilder, 
+        private documentService: DocumentService, 
+        private route: ActivatedRoute, 
+        private localStorage: LocalStorageManagerService,
+        private uploadService: UploadDocumentService) {
         this.uploadForm = this.fb.group({
             file: [null, Validators.required],
             title: ['', Validators.required],
             description: ['', Validators.required],
-            summary: ['', [Validators.maxLength(this.summaryMaxLength)]],
             tags: [[]],
             sharing: ['private', Validators.required]
         });
     }
 
     ngOnInit(): void {
+        this.username = this.localStorage.getData('UI').username;
         this.route.paramMap.subscribe(params => {
             this.postId = params.get('postId') || '';
         });
         if (this.postId) {
             this.getViewDetail();
         }
+        this.loadTagOptions();
+    }
+
+    loadTagOptions() {
+        this.uploadService.getTags().subscribe((res) => {
+            this.tagOptions = res?.data || [];
+        });
     }
 
     onFileChange(event: any) {
@@ -103,15 +122,38 @@ export class ViewDetailComponent implements OnInit {
     }
 
     onSubmit() {
-    if (this.uploadForm.invalid) return;
-    // TODO: Xử lý upload
-    alert('Tài liệu đã được upload!');
+        //if (this.uploadForm.invalid) return;
+        // TODO: Xử lý upload
+        this.uploadService.editDocument(
+            this.uploadForm.get('file')?.value,
+            this.uploadForm.get('title')?.value,
+            this.uploadForm.get('description')?.value,
+            this.uploadForm.get('sharing')?.value === 'public' ? 3 : this.uploadForm.get('sharing')?.value === 'team' ? 2 : 1,
+            this.uploadForm.get('tags')?.value, this.postId
+        ).subscribe((res) => {
+            if (res.code === '00') {
+            }
+        });
     }
 
     private getViewDetail() {
         this.documentService.viewDetailPost(this.postId).subscribe(res => {
+            this.statusCode = res.code;
             if (res.code == '00') {
                 this.documentDetail = res.data;
+                if (this.username == res.data.username) {
+                    this.isEditPermission = true;
+                }
+                this.comments = res.data.comments;
+                this.uploadForm.get('title')?.setValue(res.data.title);
+                this.uploadForm.get('description')?.setValue(res.data.short_description);
+                this.uploadForm.get('summary')?.setValue(res.data.summary);
+                this.uploadForm.get('tags')?.setValue(res.data.tags);
+                this.uploadForm.get('sharing')?.setValue(res.data.sharing);
+                this.fileUrl = 'http://10.112.180.86:8080/'+ res.data.path;
+                console.log('uploadForm', this.uploadForm);
+            } else {
+                this.statusMessage = res.message;
             }
         })
     }

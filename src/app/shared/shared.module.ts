@@ -65,6 +65,8 @@ import { DocumentsComponent } from './components/documents/documents.component';
 import { UploadDocumentComponent } from './components/upload-document/upload-document.component';
 import { ViewDetailComponent } from './components/view-detail/view-detail.component';
 import { DocumentService } from '@core/services/document.service';
+import { FacebookCommentComponent } from './components/comment/comment.component';
+import { ShareButtonComponent } from './components/share-button/share-button.component';
 
 
 const THIRD_MODULES = [
@@ -128,7 +130,9 @@ const COMPONENTS = [
   DocumentsComponent,
   DochubHomepageComponent,
   UploadDocumentComponent,
-  ViewDetailComponent
+  ViewDetailComponent,
+  FacebookCommentComponent,
+  ShareButtonComponent
 ];
 
 const PIPE =[

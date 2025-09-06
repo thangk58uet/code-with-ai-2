@@ -28,4 +28,38 @@ export class DocumentService {
         );
 
     }
+
+    addComment(postId: string, comment: string, star: number) {
+        const opstions: HttpOptions = {
+            path: PATH.ADD_COMMENT,
+            url: URL_SYSTEM,
+            body: {
+                comment: comment,
+                star: star,
+                postId: postId
+            }
+        };
+        return this.httpClient.post(opstions).pipe(
+            map((response: HttpInterface<any>) => {
+                return response;
+            })
+        );
+
+    }
+
+    getComment(postId: string) {
+        const opstions: HttpOptions = {
+            path: PATH.GET_COMMENT,
+            url: URL_SYSTEM,
+            params: {
+                postId: postId
+            }
+        };
+        return this.httpClient.get(opstions).pipe(
+            map((response: HttpInterface<any>) => {
+                return response;
+            })
+        );
+
+    }
 }

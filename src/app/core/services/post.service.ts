@@ -46,6 +46,7 @@ export class PostService {
 
         return this.http.get(options);
     }
+<<<<<<< Updated upstream
     search(key: string, tag: string, date: string, pageNumber: number, pageSize: number): Observable<any> {
         let params = {}
         if (key) params = {...params, key}
@@ -63,4 +64,34 @@ export class PostService {
 
         return this.http.get(options);
     }
+=======
+
+    editDocument(
+        file: File,
+        title: string,
+        description: string,
+        sharing: 1 | 2 | 3,
+        tags: string[],
+        postId: string
+    ): Observable<HttpEvent<any>> {
+        const formData = new FormData();
+        if (file) {
+            formData.append('file', file);
+        }
+        formData.append('title', title);
+        formData.append('short_description', description);
+        formData.append('sharing', sharing.toString());
+        formData.append('tags', tags.join(','));
+        formData.append('postId', postId);
+        const options: HttpOptions = {
+            url: `${environment.urlSystem}/post`,
+            body: formData,
+            isAuthentication: true,
+            path: 'edit'
+        };
+
+        return this.http.post(options);
+    }
+    
+>>>>>>> Stashed changes
 }

@@ -48,7 +48,7 @@ export class AuthenticationService {
         this.storeSession(response.data);
       }),
       map((response: HttpInterface<Login>) => {
-        this.startRefreshTokenTimer();
+        //this.startRefreshTokenTimer();
         return response;
       })
     );
@@ -201,7 +201,7 @@ export class AuthenticationService {
     const decodedAccessToken = this.jwtHelper.decodeToken(data.token);
     this.setToken(data.token);
     this.setRefreshToken(data.token);
-    this.setTimeExpiration(10000000);
+    this.setTimeExpiration(data.expires_in);
     if (isRefresh) {
       this.setUserToLocalStorage(decodedAccessToken);
       // sort left menu by sortOrder

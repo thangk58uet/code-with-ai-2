@@ -17,6 +17,8 @@ export class UploadDocumentComponent {
   allowedTypes = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'image/jpeg', 'image/png'];
   summaryMaxLength = 500;
   tags: string[] = [];
+
+  tagOptions: string[] = ['Important', 'Review', 'Personal', 'Work', 'Urgent', 'Archive'];
   readonly separatorKeysCodes: number[] = [ENTER, COMMA];
 
   constructor(private fb: FormBuilder) {

@@ -8,6 +8,7 @@ export const PATH = {
     GENERATE_TOKEN: 'public/login',
     GET_GROUP_USER: 'public/group/index',
     REGISTER_USER: 'public/register',
+    VIEW_DETAIL_POST: 'post/detail',
     AUTO_GENERATE_TOKEN: 'generate-token-url',
     REVOKE_TOKEN: 'revoke-token',
     USER_INFO: 'user-info',

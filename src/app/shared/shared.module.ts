@@ -63,6 +63,8 @@ import { DochubHomepageComponent } from './components/dochub-homepage/dochub-hom
 import { A11yModule } from "@angular/cdk/a11y";
 import { DocumentsComponent } from './components/documents/documents.component';
 import { UploadDocumentComponent } from './components/upload-document/upload-document.component';
+import { ViewDetailComponent } from './components/view-detail/view-detail.component';
+import { DocumentService } from '@core/services/document.service';
 
 
 const THIRD_MODULES = [
@@ -125,7 +127,8 @@ const COMPONENTS = [
   DocumentCardComponent,  
   DocumentsComponent,
   DochubHomepageComponent,
-  UploadDocumentComponent
+  UploadDocumentComponent,
+  ViewDetailComponent
 ];
 
 const PIPE =[
@@ -144,6 +147,7 @@ const DIRECTIVES = [
   imports: [CommonModule, ...THIRD_MODULES, A11yModule],
   exports: [CommonModule, ...THIRD_MODULES, ...COMPONENTS, ...DIRECTIVES],
   entryComponents: [DialogCommonComponent],
-  schemas: [NO_ERRORS_SCHEMA]
+  schemas: [NO_ERRORS_SCHEMA],
+  providers: [DocumentService]
 })
 export class SharedModule { }

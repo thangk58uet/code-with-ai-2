@@ -12,7 +12,7 @@ export class HeaderComponent implements OnInit {
   constructor(private authenticationService: AuthenticationService, private localStorage: LocalStorageManagerService) { }
 
   ngOnInit(): void {
-    this.userName = this.localStorage.getData('UI').user_id;
+    this.userName = this.localStorage.getData('UI').username;
   }
 
   logout() {
